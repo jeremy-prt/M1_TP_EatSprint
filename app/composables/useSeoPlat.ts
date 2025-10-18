@@ -13,14 +13,24 @@ export const useSeoPlat = (
     ([currentPlat, currentRestaurant]) => {
       if (currentPlat && currentRestaurant) {
         // Meta tags classiques
+        const route = useRoute();
+        const baseUrl = "https://m1-tp-eat-sprint.vercel.app";
+        const fullUrl = `${baseUrl}${route.fullPath}`;
+
         useSeoMeta({
           title: `${currentPlat.nom} - ${currentRestaurant.nom} | EatSprint`,
           description: `${currentPlat.description} - ${currentPlat.prix}€. Temps de préparation : ${currentPlat.temps_preparation_min} min. ${currentPlat.calories} cal. Commandez chez ${currentRestaurant.nom}.`,
           ogTitle: `${currentPlat.nom} - ${currentRestaurant.nom}`,
           ogDescription: currentPlat.description,
           ogImage: currentPlat.image,
+          ogImageAlt: currentPlat.nom,
+          ogUrl: fullUrl,
           ogType: "website",
+          ogSiteName: "EatSprint",
           twitterCard: "summary_large_image",
+          twitterTitle: `${currentPlat.nom} - ${currentRestaurant.nom}`,
+          twitterDescription: currentPlat.description,
+          twitterImage: currentPlat.image,
         });
 
         // Schema.org Product pour Google Rich Results via JSON-LD
