@@ -1,4 +1,4 @@
-import { watch, type ComputedRef, type Ref } from "vue";
+import { computed, type ComputedRef, type Ref } from "vue";
 import type { Plat } from "~/types/plat";
 import type { Restaurant } from "~/types/restaurant";
 
@@ -8,72 +8,82 @@ export const useSeoPlat = (
     | ComputedRef<Restaurant | null | undefined>
     | Ref<Restaurant | null | undefined>,
 ) => {
-  watch(
-    [plat, restaurant],
-    ([currentPlat, currentRestaurant]) => {
-      if (currentPlat && currentRestaurant) {
-        // Meta tags classiques
-        const route = useRoute();
-        const baseUrl = "https://m1-tp-eat-sprint.vercel.app";
-        const fullUrl = `${baseUrl}${route.fullPath}`;
+  const route = useRoute();
+  const baseUrl = "https://m1-tp-eat-sprint.vercel.app";
 
-        useSeoMeta({
-          title: `${currentPlat.nom} - ${currentRestaurant.nom} | EatSprint`,
-          description: `${currentPlat.description} - ${currentPlat.prix}€. Temps de préparation : ${currentPlat.temps_preparation_min} min. ${currentPlat.calories} cal. Commandez chez ${currentRestaurant.nom}.`,
-          ogTitle: `${currentPlat.nom} - ${currentRestaurant.nom}`,
-          ogDescription: currentPlat.description,
-          ogImage: currentPlat.image,
-          ogImageAlt: currentPlat.nom,
-          ogUrl: fullUrl,
-          ogType: "website",
-          ogSiteName: "EatSprint",
-          twitterCard: "summary_large_image",
-          twitterTitle: `${currentPlat.nom} - ${currentRestaurant.nom}`,
-          twitterDescription: currentPlat.description,
-          twitterImage: currentPlat.image,
-        });
+  const title = computed(() => {
+    if (!plat.value || !restaurant.value) return "EatSprint";
+    return `${plat.value.nom} - ${restaurant.value.nom} | EatSprint`;
+  });
 
-        // Schema.org Product pour Google Rich Results via JSON-LD
-        const schemaOrgProduct = {
-          "@context": "https://schema.org",
-          "@type": "Product",
-          name: currentPlat.nom,
-          description: currentPlat.description,
-          image: currentPlat.image,
-          offers: {
-            "@type": "Offer",
-            price: currentPlat.prix,
-            priceCurrency: "EUR",
-            availability: currentPlat.disponible
-              ? "https://schema.org/InStock"
-              : "https://schema.org/OutOfStock",
-          },
-          nutrition: {
-            "@type": "NutritionInformation",
-            calories: `${currentPlat.calories} calories`,
-          },
-          aggregateRating: currentRestaurant.note
-            ? {
-                "@type": "AggregateRating",
-                ratingValue: currentRestaurant.note,
-                bestRating: "5",
-              }
-            : undefined,
-        };
+  const description = computed(() => {
+    if (!plat.value || !restaurant.value) return "";
+    return `${plat.value.description} - ${plat.value.prix}€. Temps de préparation : ${plat.value.temps_preparation_min} min. ${plat.value.calories} cal. Commandez chez ${restaurant.value.nom}.`;
+  });
 
-        useHead({
-          htmlAttrs: {
-            lang: "fr",
-          },
-          script: [
-            {
-              type: "application/ld+json",
-              innerHTML: JSON.stringify(schemaOrgProduct),
-            },
-          ],
-        });
-      }
+  const ogImage = computed(() => plat.value?.image || "");
+  const ogTitle = computed(() => {
+    if (!plat.value || !restaurant.value) return "";
+    return `${plat.value.nom} - ${restaurant.value.nom}`;
+  });
+
+  useSeoMeta({
+    title,
+    description,
+    ogTitle,
+    ogDescription: () => plat.value?.description || "",
+    ogImage,
+    ogImageAlt: () => plat.value?.nom || "",
+    ogUrl: () => `${baseUrl}${route.fullPath}`,
+    ogType: "website",
+    ogSiteName: "EatSprint",
+    twitterCard: "summary_large_image",
+    twitterTitle: ogTitle,
+    twitterDescription: () => plat.value?.description || "",
+    twitterImage: ogImage,
+  });
+
+  // Schema.org Product pour Google Rich Results via JSON-LD
+  const schemaOrgProduct = computed(() => {
+    if (!plat.value || !restaurant.value) return null;
+
+    return {
+      "@context": "https://schema.org",
+      "@type": "Product",
+      name: plat.value.nom,
+      description: plat.value.description,
+      image: plat.value.image,
+      offers: {
+        "@type": "Offer",
+        price: plat.value.prix,
+        priceCurrency: "EUR",
+        availability: plat.value.disponible
+          ? "https://schema.org/InStock"
+          : "https://schema.org/OutOfStock",
+      },
+      nutrition: {
+        "@type": "NutritionInformation",
+        calories: `${plat.value.calories} calories`,
+      },
+      aggregateRating: restaurant.value.note
+        ? {
+            "@type": "AggregateRating",
+            ratingValue: restaurant.value.note,
+            bestRating: "5",
+          }
+        : undefined,
+    };
+  });
+
+  useHead({
+    htmlAttrs: {
+      lang: "fr",
     },
-    { immediate: true },
-  );
+    script: [
+      {
+        type: "application/ld+json",
+        innerHTML: () => JSON.stringify(schemaOrgProduct.value),
+      },
+    ],
+  });
 };

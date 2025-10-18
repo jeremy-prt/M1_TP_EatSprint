@@ -1,40 +1,53 @@
-import { watch, type ComputedRef, type Ref } from "vue";
+import { computed, type ComputedRef, type Ref } from "vue";
 import type { Restaurant } from "~/types/restaurant";
 
 export const useSeoRestaurant = (
   restaurant: ComputedRef<Restaurant | undefined> | Ref<Restaurant | undefined>,
 ) => {
-  watch(
-    restaurant,
-    (resto) => {
-      if (resto) {
-        const route = useRoute();
-        const baseUrl = "https://m1-tp-eat-sprint.vercel.app";
-        const fullUrl = `${baseUrl}${route.fullPath}`;
+  const route = useRoute();
+  const baseUrl = "https://m1-tp-eat-sprint.vercel.app";
 
-        useSeoMeta({
-          title: `${resto.nom} - Menu et Plats | EatSprint`,
-          description: `Découvrez le menu complet de ${resto.nom} à ${resto.ville}. Note : ${resto.note}/5. Commandez en ligne pour une livraison rapide.`,
-          ogTitle: `${resto.nom} - Menu et Plats | EatSprint`,
-          ogDescription: `Découvrez le menu de ${resto.nom} à ${resto.ville}. Note : ${resto.note}/5`,
-          ogImage: resto.image,
-          ogImageAlt: resto.nom,
-          ogUrl: fullUrl,
-          ogType: "website",
-          ogSiteName: "EatSprint",
-          twitterCard: "summary_large_image",
-          twitterTitle: `${resto.nom} - Menu et Plats | EatSprint`,
-          twitterDescription: `Découvrez le menu de ${resto.nom} à ${resto.ville}`,
-          twitterImage: resto.image,
-        });
+  const title = computed(() => {
+    if (!restaurant.value) return "EatSprint";
+    return `${restaurant.value.nom} - Menu et Plats | EatSprint`;
+  });
 
-        useHead({
-          htmlAttrs: {
-            lang: "fr",
-          },
-        });
-      }
+  const description = computed(() => {
+    if (!restaurant.value) return "";
+    return `Découvrez le menu complet de ${restaurant.value.nom} à ${restaurant.value.ville}. Note : ${restaurant.value.note}/5. Commandez en ligne pour une livraison rapide.`;
+  });
+
+  const ogTitle = computed(() => {
+    if (!restaurant.value) return "";
+    return `${restaurant.value.nom} - Menu et Plats | EatSprint`;
+  });
+
+  const ogDescription = computed(() => {
+    if (!restaurant.value) return "";
+    return `Découvrez le menu de ${restaurant.value.nom} à ${restaurant.value.ville}. Note : ${restaurant.value.note}/5`;
+  });
+
+  const ogImage = computed(() => restaurant.value?.image || "");
+
+  useSeoMeta({
+    title,
+    description,
+    ogTitle,
+    ogDescription,
+    ogImage,
+    ogImageAlt: () => restaurant.value?.nom || "",
+    ogUrl: () => `${baseUrl}${route.fullPath}`,
+    ogType: "website",
+    ogSiteName: "EatSprint",
+    twitterCard: "summary_large_image",
+    twitterTitle: ogTitle,
+    twitterDescription: ogDescription,
+    twitterImage: ogImage,
+  });
+
+  useHead({
+    htmlAttrs: {
+      lang: "fr",
     },
-    { immediate: true },
-  );
+  });
 };
