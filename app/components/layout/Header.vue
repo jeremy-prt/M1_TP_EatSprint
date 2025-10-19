@@ -34,7 +34,7 @@
 
         <div class="flex items-center gap-6 justify-self-end">
           <NuxtLink
-            to="/profil"
+            to="/mon-espace-perso"
             class="group relative text-white transition-all duration-300 hover:-translate-y-0.5"
           >
             <span class="relative z-10">Mon espace perso</span>

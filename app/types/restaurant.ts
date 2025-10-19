@@ -12,4 +12,5 @@ export interface Restaurant {
   gamme_prix: string
   temps_livraison_min: number
   slug: string
+  owner_id: number | null
 }

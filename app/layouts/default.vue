@@ -2,7 +2,7 @@
   <div>
     <LayoutHeader />
     <main
-      class="bg-background-light pt-header"
+      class="bg-background-light min-h-screen pt-header"
       style="background-image: url('/images/patterns/background-pattern.svg'); background-repeat: repeat;"
     >
       <slot />
