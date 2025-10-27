@@ -35,13 +35,12 @@
 
     <div class="overflow-hidden pr-6">
       <div ref="scrollContainer" class="carousel-container pb-2 pl-5">
-        <!-- Message si aucun restaurant dans cette catégorie -->
-        <div
+        <p
           v-if="restaurantsFiltered.length === 0"
-          class="flex w-full items-center justify-center border-2 border-dashed border-gray-300 bg-gray-50 p-8"
+          class="pl-5 text-gray-500"
         >
-          <p class="text-gray-500">Aucun restaurant dans cette catégorie</p>
-        </div>
+          Aucun restaurant dans cette catégorie
+        </p>
 
         <!-- Liste des restaurants -->
         <NuxtLink
@@ -89,64 +88,61 @@
   </div>
 </template>
 
-<script setup>
-import { ref, computed } from "vue";
+<script setup lang="ts">
+interface Props {
+  categorie: string
+}
 
-const props = defineProps({
-  categorie: {
-    type: String,
-    required: true,
-  },
-});
+const props = defineProps<Props>()
 
 // POUR TESTER LES ERREURS : Faut passer true dans useRestaurants, ça permet de test l'affichage d'erreur
-const { getRestaurantsByCategorie, pending, error, refresh } = useRestaurants();
-const scrollContainer = ref(null);
+const { getRestaurantsByCategorie, pending, error, refresh } = useRestaurants()
+const scrollContainer = ref<HTMLElement | null>(null)
 
 const restaurantsFiltered = computed(() =>
-  getRestaurantsByCategorie(props.categorie),
-);
+  getRestaurantsByCategorie(props.categorie)
+)
 
 const scrollPrev = () => {
   if (scrollContainer.value) {
-    const container = scrollContainer.value;
-    const containerWidth = container.offsetWidth;
-    const currentScroll = container.scrollLeft;
+    const container = scrollContainer.value
+    const containerWidth = container.offsetWidth
+    const currentScroll = container.scrollLeft
 
     if (currentScroll <= 0) {
       container.scrollTo({
         left: container.scrollWidth - containerWidth,
-        behavior: "smooth",
-      });
+        behavior: 'smooth'
+      })
     } else {
       container.scrollBy({
         left: -containerWidth,
-        behavior: "smooth",
-      });
+        behavior: 'smooth'
+      })
     }
   }
-};
+}
 
 const scrollNext = () => {
   if (scrollContainer.value) {
-    const container = scrollContainer.value;
-    const containerWidth = container.offsetWidth;
-    const currentScroll = container.scrollLeft;
-    const maxScroll = container.scrollWidth - containerWidth;
+    const container = scrollContainer.value
+    const containerWidth = container.offsetWidth
+    const currentScroll = container.scrollLeft
+    const maxScroll = container.scrollWidth - containerWidth
 
     if (currentScroll >= maxScroll - 10) {
       container.scrollTo({
         left: 0,
-        behavior: "smooth",
-      });
+        behavior: 'smooth'
+      })
     } else {
       container.scrollBy({
         left: containerWidth,
-        behavior: "smooth",
-      });
+        behavior: 'smooth'
+      })
     }
   }
-};
+}
 </script>
 
 <style scoped>

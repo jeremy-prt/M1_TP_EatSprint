@@ -1,17 +1,25 @@
 <template>
   <div class="relative min-h-[calc(100vh-var(--spacing-header))] py-8">
-    <div class="w-full pl-6">
-      <div class="space-y-16">
-        <RestaurantCategoryRow categorie="Nouveau" />
-        <RestaurantCategoryRow categorie="Tendance" />
-        <RestaurantCategoryRow categorie="Petit prix" />
-        <RestaurantCategoryRow categorie="Gastronomique" />
+    <RestaurantSearchBar v-model="searchQuery" />
+
+    <Transition name="fade" mode="out-in">
+      <RestaurantGrid v-if="searchQuery" :search-query="searchQuery" />
+
+      <div v-else class="w-full pl-6">
+        <div class="space-y-16">
+          <RestaurantCategoryRow categorie="Nouveau" />
+          <RestaurantCategoryRow categorie="Tendance" />
+          <RestaurantCategoryRow categorie="Petit prix" />
+          <RestaurantCategoryRow categorie="Gastronomique" />
+        </div>
       </div>
-    </div>
+    </Transition>
   </div>
 </template>
 
-<script setup>
+<script setup lang="ts">
+const searchQuery = ref<string>('')
+
 useSeoMeta({
   title: "Nos Restaurants - EatSprint",
   description:
@@ -30,3 +38,20 @@ useHead({
   },
 });
 </script>
+
+<style scoped>
+.fade-enter-active,
+.fade-leave-active {
+  transition: all 0.3s ease;
+}
+
+.fade-enter-from {
+  opacity: 0;
+  transform: translateY(20px);
+}
+
+.fade-leave-to {
+  opacity: 0;
+  transform: translateY(-20px);
+}
+</style>

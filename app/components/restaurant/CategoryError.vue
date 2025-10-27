@@ -27,13 +27,14 @@
   </div>
 </template>
 
-<script setup>
-defineProps({
-  categorie: {
-    type: String,
-    required: true,
-  },
-});
+<script setup lang="ts">
+interface Props {
+  categorie: string
+}
 
-defineEmits(["retry"]);
+defineProps<Props>()
+
+defineEmits<{
+  'retry': []
+}>()
 </script>
