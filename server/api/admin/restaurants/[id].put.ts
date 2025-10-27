@@ -1,10 +1,20 @@
 import type { Restaurant } from '~/types/restaurant'
 import type { User } from '~/types/auth'
+import type { UpdateRestaurantAdminRequest } from '~/types/requests'
 
-interface UpdateRestaurantRequest {
-  owner_id: number | null
-}
-
+/**
+ * PUT /api/admin/restaurants/:id
+ * Assigne ou désassigne un propriétaire à un restaurant (admin uniquement)
+ * @requires Cookie auth_user_id - Utilisateur doit être admin
+ * @param id - ID du restaurant à modifier
+ * @body UpdateRestaurantAdminRequest - { owner_id: number | null }
+ * @returns { restaurant: Restaurant } - Restaurant mis à jour
+ * @throws 401 - Non authentifié
+ * @throws 403 - Accès interdit (non admin) ou owner_id invalide
+ * @throws 404 - Restaurant non trouvé
+ * @throws 500 - Erreur serveur ou configuration manquante
+ * @throws 503 - Service temporairement indisponible
+ */
 export default defineEventHandler(async (event) => {
   const config = useRuntimeConfig()
 
@@ -27,7 +37,7 @@ export default defineEventHandler(async (event) => {
   }
 
   const restaurantId = getRouterParam(event, 'id')
-  const body = await readBody<UpdateRestaurantRequest>(event)
+  const body = await readBody<UpdateRestaurantAdminRequest>(event)
 
   try {
     // Vérifier le role de l'user

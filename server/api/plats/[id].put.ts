@@ -1,22 +1,21 @@
 import type { Plat } from '~/types/plat'
 import type { Restaurant } from '~/types/restaurant'
 import type { User } from '~/types/auth'
+import type { UpdatePlatRequest } from '~/types/requests'
 
-interface UpdatePlatRequest {
-  nom?: string
-  prix?: number
-  description?: string
-  categorie?: string
-  calories?: number
-  temps_preparation_min?: number
-  vegetarien?: boolean
-  vegan?: boolean
-  epice?: boolean
-  allergenes?: string | null
-  disponible?: boolean
-  image?: string
-}
-
+/**
+ * PUT /api/plats/:id
+ * Met à jour les informations d'un plat (propriétaire du restaurant uniquement)
+ * @requires Cookie auth_user_id - Utilisateur doit être le propriétaire du restaurant
+ * @param id - ID du plat à modifier
+ * @body UpdatePlatRequest - Données à mettre à jour (champs optionnels)
+ * @returns { plat: Plat } - Plat mis à jour
+ * @throws 401 - Non authentifié
+ * @throws 403 - Accès interdit (non restaurant_owner ou pas le propriétaire)
+ * @throws 404 - Plat non trouvé
+ * @throws 500 - Erreur serveur ou configuration manquante
+ * @throws 503 - Service temporairement indisponible
+ */
 export default defineEventHandler(async (event) => {
   const config = useRuntimeConfig()
 
@@ -111,6 +110,24 @@ export default defineEventHandler(async (event) => {
       })
     }
 
+    // Préparer les données de mise à jour (filtre les champs undefined)
+    const updateBody: any = {}
+    if (body.nom !== undefined) {
+      updateBody.nom = body.nom
+      updateBody.slug = generateSlug(body.nom)
+    }
+    if (body.prix !== undefined) updateBody.prix = body.prix
+    if (body.description !== undefined) updateBody.description = body.description
+    if (body.categorie !== undefined) updateBody.categorie = body.categorie
+    if (body.calories !== undefined) updateBody.calories = body.calories
+    if (body.temps_preparation_min !== undefined) updateBody.temps_preparation_min = body.temps_preparation_min
+    if (body.vegetarien !== undefined) updateBody.vegetarien = body.vegetarien
+    if (body.vegan !== undefined) updateBody.vegan = body.vegan
+    if (body.epice !== undefined) updateBody.epice = body.epice
+    if (body.allergenes !== undefined) updateBody.allergenes = body.allergenes
+    if (body.disponible !== undefined) updateBody.disponible = body.disponible
+    if (body.image !== undefined) updateBody.image = body.image
+
     // Mettre à jour le plat
     const response = await $fetch<Plat[]>(`${config.supabaseUrl}/rest/v1/plats`, {
       method: 'PATCH',
@@ -123,7 +140,7 @@ export default defineEventHandler(async (event) => {
       query: {
         id: `eq.${platId}`
       },
-      body,
+      body: updateBody,
       timeout: 10000
     })
 

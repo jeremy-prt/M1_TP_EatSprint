@@ -6,7 +6,7 @@
       class="mb-2 block font-semibold text-gray-700"
     >
       {{ label }}
-      <span v-if="optional" class="text-gray-400">(optionnel)</span>
+      <span v-if="optional" class="text-gray-400">({{ optionalText }})</span>
     </label>
     <input
       :id="inputId"
@@ -14,27 +14,40 @@
       :placeholder="placeholder"
       :required="required"
       :value="modelValue"
-      @input="
-        $emit('update:modelValue', ($event.target as HTMLInputElement).value)
-      "
+      @input="handleInput"
       class="focus:border-primary w-full border-2 border-gray-300 px-4 py-3 duration-300 focus:outline-none"
     />
   </div>
 </template>
 
 <script setup lang="ts">
-const props = defineProps<{
+const props = withDefaults(defineProps<{
   label?: string;
   type?: string;
   placeholder?: string;
   required?: boolean;
   optional?: boolean;
-  modelValue?: string;
+  optionalText?: string;
+  modelValue?: string | number;
+}>(), {
+  optionalText: 'optionnel'
+});
+
+const emit = defineEmits<{
+  "update:modelValue": [value: string | number];
 }>();
 
-defineEmits<{
-  "update:modelValue": [value: string];
-}>();
+const handleInput = (event: Event) => {
+  const target = event.target as HTMLInputElement;
+  const value = target.value;
+
+  if (props.type === 'number') {
+    const numValue = parseFloat(value);
+    emit('update:modelValue', isNaN(numValue) ? 0 : numValue);
+  } else {
+    emit('update:modelValue', value);
+  }
+};
 
 const inputId = computed(() => {
   return props.label

@@ -28,19 +28,16 @@
   </div>
 </template>
 
-<script setup>
-defineProps({
-  restaurantName: {
-    type: String,
-    default: null,
-  },
-  restaurantSlug: {
-    type: String,
-    default: null,
-  },
-  platName: {
-    type: String,
-    default: null,
-  },
-});
+<script setup lang="ts">
+interface Props {
+  restaurantName?: string | null
+  restaurantSlug?: string | null
+  platName?: string | null
+}
+
+withDefaults(defineProps<Props>(), {
+  restaurantName: null,
+  restaurantSlug: null,
+  platName: null
+})
 </script>

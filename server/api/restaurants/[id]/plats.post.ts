@@ -1,23 +1,21 @@
 import type { Plat } from '~/types/plat'
 import type { Restaurant } from '~/types/restaurant'
 import type { User } from '~/types/auth'
+import type { CreatePlatRequest } from '~/types/requests'
 
-interface CreatePlatRequest {
-  nom: string
-  prix: number
-  description: string
-  categorie: string
-  calories: number
-  temps_preparation_min: number
-  vegetarien: boolean
-  vegan: boolean
-  epice: boolean
-  allergenes: string | null
-  disponible: boolean
-  image: string
-  slug: string
-}
-
+/**
+ * POST /api/restaurants/:id/plats
+ * Crée un nouveau plat pour un restaurant (propriétaire uniquement)
+ * @requires Cookie auth_user_id - Utilisateur doit être le propriétaire du restaurant
+ * @param id - ID du restaurant parent
+ * @body CreatePlatRequest - Données du plat à créer
+ * @returns { plat: Plat } - Plat créé
+ * @throws 401 - Non authentifié
+ * @throws 403 - Accès interdit (non restaurant_owner ou pas le propriétaire)
+ * @throws 404 - Restaurant non trouvé
+ * @throws 500 - Erreur serveur ou configuration manquante
+ * @throws 503 - Service temporairement indisponible
+ */
 export default defineEventHandler(async (event) => {
   const config = useRuntimeConfig()
 
@@ -88,6 +86,9 @@ export default defineEventHandler(async (event) => {
       })
     }
 
+    // Générer le slug à partir du nom
+    const slug = generateSlug(body.nom)
+
     // Créer le plat
     const response = await $fetch<Plat[]>(`${config.supabaseUrl}/rest/v1/plats`, {
       method: 'POST',
@@ -99,6 +100,7 @@ export default defineEventHandler(async (event) => {
       },
       body: {
         ...body,
+        slug,
         restaurant_id: parseInt(restaurantId!)
       },
       timeout: 10000

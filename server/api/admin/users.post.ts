@@ -1,15 +1,18 @@
 import type { User } from '~/types/auth'
+import type { CreateUserRequest } from '~/types/requests'
 
-interface CreateUserRequest {
-  email: string
-  password: string
-  name: string
-  adresse?: string
-  ville?: string
-  code_postal?: string
-  role: 'restaurant_owner' | 'admin'
-}
-
+/**
+ * POST /api/admin/users
+ * Crée un nouvel utilisateur (restaurateur ou admin)
+ * @requires Cookie auth_user_id - Utilisateur doit être admin
+ * @body CreateUserRequest - Données de l'utilisateur à créer
+ * @returns { user: User } - Utilisateur créé
+ * @throws 401 - Non authentifié
+ * @throws 403 - Accès interdit (non admin)
+ * @throws 409 - Email déjà utilisé
+ * @throws 500 - Erreur serveur, configuration manquante ou données invalides
+ * @throws 503 - Service temporairement indisponible
+ */
 export default defineEventHandler(async (event) => {
   const config = useRuntimeConfig()
 

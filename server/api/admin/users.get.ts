@@ -1,5 +1,15 @@
 import type { User } from '~/types/auth'
 
+/**
+ * GET /api/admin/users
+ * Récupère la liste de tous les utilisateurs (admin uniquement)
+ * @requires Cookie auth_user_id - Utilisateur doit être admin
+ * @returns User[] - Liste de tous les utilisateurs
+ * @throws 401 - Non authentifié
+ * @throws 403 - Accès interdit (non admin)
+ * @throws 500 - Erreur serveur ou configuration manquante
+ * @throws 503 - Service temporairement indisponible
+ */
 export default defineEventHandler(async (event) => {
   const config = useRuntimeConfig()
 

@@ -1,5 +1,11 @@
 import type { Plat } from "~/types/plat";
 
+/**
+ * Composable pour récupérer et gérer les plats côté public
+ * Utilise useAsyncData pour SSR et caching automatique
+ * @param restaurantId - ID du restaurant pour filtrer les plats (optionnel)
+ * @param simulateError - Pour tester la gestion d'erreur (dev only)
+ */
 export const usePlats = (restaurantId?: number, simulateError = false) => {
   const queryParams = new URLSearchParams();
 
@@ -38,6 +44,14 @@ export const usePlats = (restaurantId?: number, simulateError = false) => {
     },
   );
 
+  // Utilise le délai pour éviter les flashs de skeleton sur connexion rapide
+  const showSkeleton = useDelayedPending(pending, 200);
+
+  /**
+   * Filtre les plats par restaurant
+   * @param restaurantId - ID du restaurant
+   * @returns Liste des plats du restaurant
+   */
   const getPlatsByRestaurant = (restaurantId: number) => {
     if (!plats.value) return [];
     return plats.value.filter((p) => p.restaurant_id === restaurantId);
@@ -45,7 +59,7 @@ export const usePlats = (restaurantId?: number, simulateError = false) => {
 
   return {
     plats,
-    pending,
+    pending: showSkeleton,
     error,
     refresh,
     getPlatsByRestaurant,

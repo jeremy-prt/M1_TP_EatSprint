@@ -1,4 +1,5 @@
 import type { User, UserRole } from '~/types/auth'
+import type { ApiResponse } from '~/types/api'
 
 interface CreateUserData {
   name: string
@@ -20,21 +21,27 @@ interface UpdateUserData {
   restaurantId?: number | null
 }
 
-interface ApiResponse<T> {
-  success: boolean
-  error?: string
-  data?: T
-}
-
+/**
+ * Composable pour gérer les utilisateurs côté admin
+ * Gère le CRUD des restaurateurs et la récupération de tous les users
+ */
 export const useAdminUsers = () => {
   const users = ref<User[]>([])
   const pending = ref(true)
   const error = ref('')
 
+  // Utilise le délai pour éviter les flashs de skeleton sur connexion rapide
+  const showSkeleton = useDelayedPending(pending, 200)
+
   const restaurantOwners = computed(() => {
     return users.value.filter((u) => u.role === 'restaurant_owner')
   })
 
+  /**
+   * Convertit le rôle technique en label français
+   * @param role - Rôle de l'utilisateur
+   * @returns Label traduit en français
+   */
   const getRoleLabel = (role: UserRole): string => {
     switch (role) {
       case 'admin':
@@ -48,6 +55,9 @@ export const useAdminUsers = () => {
     }
   }
 
+  /**
+   * Récupère tous les utilisateurs depuis l'API admin
+   */
   const fetchUsers = async (): Promise<void> => {
     pending.value = true
     error.value = ''
@@ -64,6 +74,11 @@ export const useAdminUsers = () => {
 
   const refresh = fetchUsers
 
+  /**
+   * Crée un nouvel utilisateur restaurateur
+   * @param userData - Données du restaurateur à créer
+   * @returns ApiResponse avec l'utilisateur créé
+   */
   const createUser = async (userData: CreateUserData): Promise<ApiResponse<User>> => {
     try {
       const response = await $fetch<{ user: User }>('/api/admin/users', {
@@ -88,6 +103,12 @@ export const useAdminUsers = () => {
     }
   }
 
+  /**
+   * Met à jour les informations d'un utilisateur
+   * @param userId - ID de l'utilisateur à modifier
+   * @param userData - Données partielles à mettre à jour
+   * @returns ApiResponse avec l'utilisateur modifié
+   */
   const updateUser = async (userId: number, userData: Partial<UpdateUserData>): Promise<ApiResponse<User>> => {
     try {
       const response = await $fetch<{ user: User }>(`/api/admin/users/${userId}`, {
@@ -112,7 +133,7 @@ export const useAdminUsers = () => {
 
   return {
     users,
-    pending,
+    pending: showSkeleton,
     error,
     restaurantOwners,
     getRoleLabel,

@@ -145,29 +145,28 @@
   </div>
 </template>
 
-<script setup>
-import { ref } from "vue";
+<script setup lang="ts">
+import type { Plat } from '~/types/plat'
 
-const props = defineProps({
-  plat: {
-    type: Object,
-    required: true,
-  },
-});
+interface Props {
+  plat: Plat
+}
 
-const quantity = ref(1);
+const props = defineProps<Props>()
+
+const quantity = ref(1)
 
 const incrementQuantity = () => {
-  quantity.value++;
-};
+  quantity.value++
+}
 
 const decrementQuantity = () => {
   if (quantity.value > 1) {
-    quantity.value--;
+    quantity.value--
   }
-};
+}
 
 const addToCart = () => {
-  console.log(`Ajout au panier : ${props.plat.nom} x ${quantity.value}`);
-};
+  console.log(`Ajout au panier : ${props.plat.nom} x ${quantity.value}`)
+}
 </script>

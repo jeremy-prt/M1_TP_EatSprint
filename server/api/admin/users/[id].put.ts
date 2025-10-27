@@ -1,13 +1,19 @@
 import type { User } from '~/types/auth'
+import type { UpdateUserRequest } from '~/types/requests'
 
-interface UpdateUserRequest {
-  name?: string
-  email?: string
-  adresse?: string | null
-  ville?: string | null
-  code_postal?: string | null
-}
-
+/**
+ * PUT /api/admin/users/:id
+ * Met à jour les informations d'un utilisateur (admin uniquement)
+ * @requires Cookie auth_user_id - Utilisateur doit être admin
+ * @param id - ID de l'utilisateur à modifier
+ * @body UpdateUserRequest - Données à mettre à jour (champs optionnels)
+ * @returns { user: User } - Utilisateur mis à jour
+ * @throws 401 - Non authentifié
+ * @throws 403 - Accès interdit (non admin)
+ * @throws 404 - Utilisateur non trouvé
+ * @throws 500 - Erreur serveur ou configuration manquante
+ * @throws 503 - Service temporairement indisponible
+ */
 export default defineEventHandler(async (event) => {
   const config = useRuntimeConfig()
 

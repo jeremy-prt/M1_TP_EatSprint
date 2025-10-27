@@ -1,6 +1,11 @@
 import { computed, type ComputedRef, type Ref } from "vue";
 import type { Restaurant } from "~/types/restaurant";
 
+/**
+ * Composable pour gérer les meta tags SEO d'une page restaurant
+ * Configure automatiquement title, description, Open Graph et Twitter Card
+ * @param restaurant - Ref ou ComputedRef du restaurant
+ */
 export const useSeoRestaurant = (
   restaurant: ComputedRef<Restaurant | undefined> | Ref<Restaurant | undefined>,
 ) => {

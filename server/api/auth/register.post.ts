@@ -1,5 +1,13 @@
 import type { RegisterRequest, User } from '~/types/auth'
 
+/**
+ * POST /api/auth/register
+ * Inscrit un nouvel utilisateur (client uniquement)
+ * @returns { user: User } - Utilisateur créé avec cookie de session
+ * @throws 409 - Email déjà utilisé
+ * @throws 500 - Erreur serveur, configuration manquante ou données invalides
+ * @throws 503 - Service temporairement indisponible
+ */
 export default defineEventHandler(async (event) => {
   const config = useRuntimeConfig()
 

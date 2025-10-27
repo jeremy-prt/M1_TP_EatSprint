@@ -2,6 +2,18 @@ import type { Plat } from '~/types/plat'
 import type { Restaurant } from '~/types/restaurant'
 import type { User } from '~/types/auth'
 
+/**
+ * DELETE /api/plats/:id
+ * Supprime un plat (propriétaire du restaurant uniquement)
+ * @requires Cookie auth_user_id - Utilisateur doit être le propriétaire du restaurant
+ * @param id - ID du plat à supprimer
+ * @returns { success: true }
+ * @throws 401 - Non authentifié
+ * @throws 403 - Accès interdit (non restaurant_owner ou pas le propriétaire)
+ * @throws 404 - Plat non trouvé
+ * @throws 500 - Erreur serveur ou configuration manquante
+ * @throws 503 - Service temporairement indisponible
+ */
 export default defineEventHandler(async (event) => {
   const config = useRuntimeConfig()
 

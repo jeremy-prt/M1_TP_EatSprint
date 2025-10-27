@@ -48,7 +48,7 @@
 
           <NuxtLink
             v-if="authStore.isRestaurantOwner"
-            to="/dashboard"
+            to="/restaurant-owner/dashboard"
             class="button-cta bg-secondary inline-flex -skew-x-6 cursor-pointer items-center justify-center border-none px-8 py-3 text-xl font-bold text-white no-underline shadow-[6px_6px_0_black] transition-all duration-150 focus:outline-none"
           >
             <span class="skew-x-6 italic">

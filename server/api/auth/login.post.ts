@@ -1,5 +1,13 @@
 import type { LoginRequest, User } from '~/types/auth'
 
+/**
+ * POST /api/auth/login
+ * Authentifie un utilisateur avec email et mot de passe
+ * @returns { user: User } - Utilisateur authentifié avec cookie de session
+ * @throws 401 - Email ou mot de passe incorrect
+ * @throws 500 - Erreur serveur ou configuration manquante
+ * @throws 503 - Service temporairement indisponible
+ */
 export default defineEventHandler(async (event) => {
   const config = useRuntimeConfig()
 

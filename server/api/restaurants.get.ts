@@ -1,5 +1,13 @@
 import type { Restaurant } from "~/types/restaurant";
 
+/**
+ * GET /api/restaurants
+ * Récupère la liste de tous les restaurants (endpoint public)
+ * @query simulate-error - Mode simulation d'erreur pour les tests (dev uniquement)
+ * @returns Restaurant[] - Liste de tous les restaurants
+ * @throws 500 - Erreur serveur ou configuration manquante
+ * @throws 503 - Service temporairement indisponible ou erreur simulée
+ */
 export default defineEventHandler(async (event) => {
   const config = useRuntimeConfig();
 
@@ -29,7 +37,7 @@ export default defineEventHandler(async (event) => {
         headers: {
           apikey: config.supabaseKey,
           Authorization: `Bearer ${config.supabaseKey}`,
-          "Content-Type": "application/json",
+          'Content-Type': 'application/json',
         },
         // Timeout de 10 secondes
         timeout: 10000,
@@ -63,10 +71,7 @@ export default defineEventHandler(async (event) => {
 
     // Erreur d'authentification
     if (error.statusCode === 401 || error.statusCode === 403) {
-      throw createError({
-        statusCode: 500,
-        statusMessage: "Erreur d'authentification avec la base de données",
-      });
+      throw error;
     }
 
     // Erreur générique

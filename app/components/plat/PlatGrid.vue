@@ -91,41 +91,39 @@
   </div>
 </template>
 
-<script setup>
-import { computed } from "vue";
+<script setup lang="ts">
+import type { Plat } from '~/types/plat'
 
-const route = useRoute();
-const restaurantSlug = route.params.slug;
+interface Props {
+  plats: Plat[]
+  pending?: boolean
+  error?: boolean
+}
 
-const props = defineProps({
-  plats: {
-    type: Array,
-    required: true,
-  },
-  pending: {
-    type: Boolean,
-    default: false,
-  },
-  error: {
-    type: Boolean,
-    default: false,
-  },
-});
+const props = withDefaults(defineProps<Props>(), {
+  pending: false,
+  error: false
+})
 
-defineEmits(["retry"]);
+defineEmits<{
+  retry: []
+}>()
+
+const route = useRoute()
+const restaurantSlug = route.params.slug
 
 const platsGroupes = computed(() => {
-  const groupes = {};
+  const groupes: Record<string, Plat[]> = {}
 
   props.plats.forEach((plat) => {
     if (!groupes[plat.categorie]) {
-      groupes[plat.categorie] = [];
+      groupes[plat.categorie] = []
     }
-    groupes[plat.categorie].push(plat);
-  });
+    groupes[plat.categorie].push(plat)
+  })
 
-  return groupes;
-});
+  return groupes
+})
 </script>
 
 <style scoped>

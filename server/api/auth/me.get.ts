@@ -1,5 +1,14 @@
 import type { User } from '~/types/auth'
 
+/**
+ * GET /api/auth/me
+ * Récupère les informations de l'utilisateur actuellement connecté
+ * @requires Cookie auth_user_id
+ * @returns { user: User } - Informations de l'utilisateur
+ * @throws 401 - Non authentifié ou utilisateur non trouvé
+ * @throws 500 - Erreur serveur ou configuration manquante
+ * @throws 503 - Service temporairement indisponible
+ */
 export default defineEventHandler(async (event) => {
   const config = useRuntimeConfig()
 

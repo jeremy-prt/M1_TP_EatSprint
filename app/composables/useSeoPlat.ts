@@ -2,6 +2,13 @@ import { computed, type ComputedRef, type Ref } from "vue";
 import type { Plat } from "~/types/plat";
 import type { Restaurant } from "~/types/restaurant";
 
+/**
+ * Composable pour gérer les meta tags SEO d'une page plat
+ * Configure automatiquement title, description, Open Graph, Twitter Card et Schema.org JSON-LD
+ * Le Schema.org Product permet l'affichage de rich snippets dans les résultats Google
+ * @param plat - Ref ou ComputedRef du plat
+ * @param restaurant - Ref ou ComputedRef du restaurant parent
+ */
 export const useSeoPlat = (
   plat: ComputedRef<Plat | null | undefined> | Ref<Plat | null | undefined>,
   restaurant:

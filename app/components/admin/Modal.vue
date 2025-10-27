@@ -3,7 +3,7 @@
     <Transition name="modal">
       <div
         v-if="modelValue"
-        class="fixed inset-0 z-50 flex items-center justify-center bg-black/50 px-4"
+        class="fixed inset-0 z-[100] flex items-center justify-center bg-black/50 px-4"
         @click.self="close"
       >
         <div
@@ -37,21 +37,21 @@
 
 <script setup lang="ts">
 interface Props {
-  modelValue: boolean
-  title: string
+  modelValue: boolean;
+  title: string;
 }
 
 withDefaults(defineProps<Props>(), {
-  modelValue: false
-})
+  modelValue: false,
+});
 
 const emit = defineEmits<{
-  'update:modelValue': [value: boolean]
-}>()
+  "update:modelValue": [value: boolean];
+}>();
 
 const close = () => {
-  emit('update:modelValue', false)
-}
+  emit("update:modelValue", false);
+};
 </script>
 
 <style scoped>

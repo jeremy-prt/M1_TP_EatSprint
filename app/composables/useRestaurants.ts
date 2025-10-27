@@ -1,5 +1,10 @@
 import type { Restaurant } from "~/types/restaurant";
 
+/**
+ * Composable pour récupérer et gérer les restaurants côté public
+ * Utilise useAsyncData pour SSR et caching automatique
+ * @param simulateError - Pour tester la gestion d'erreur (dev only)
+ */
 export const useRestaurants = (simulateError = false) => {
   const queryParams = simulateError ? "?simulate-error=true" : "";
 
@@ -28,6 +33,14 @@ export const useRestaurants = (simulateError = false) => {
     },
   );
 
+  // Utilise le délai pour éviter les flashs de skeleton sur connexion rapide
+  const showSkeleton = useDelayedPending(pending, 200);
+
+  /**
+   * Filtre les restaurants par catégorie
+   * @param categorie - Catégorie de restaurant (ex: "Japonais", "Italien")
+   * @returns Liste des restaurants de la catégorie
+   */
   const getRestaurantsByCategorie = (categorie: string) => {
     if (!restaurants.value) return [];
     return restaurants.value.filter((r) => r.categorie === categorie);
@@ -35,7 +48,7 @@ export const useRestaurants = (simulateError = false) => {
 
   return {
     restaurants,
-    pending,
+    pending: showSkeleton,
     error,
     refresh,
     getRestaurantsByCategorie,

@@ -1,16 +1,21 @@
 import type { Restaurant } from '~/types/restaurant'
+import type { ApiResponse } from '~/types/api'
 
-interface ApiResponse<T> {
-  success: boolean
-  error?: string
-  data?: T
-}
-
+/**
+ * Composable pour gérer les restaurants côté admin
+ * Permet l'assignation de restaurants aux restaurateurs
+ */
 export const useAdminRestaurants = () => {
   const restaurants = ref<Restaurant[]>([])
   const pending = ref(true)
   const error = ref('')
 
+  // Utilise le délai pour éviter les flashs de skeleton sur connexion rapide
+  const showSkeleton = useDelayedPending(pending, 200)
+
+  /**
+   * Récupère tous les restaurants depuis l'API admin
+   */
   const fetchRestaurants = async (): Promise<void> => {
     pending.value = true
     error.value = ''
@@ -27,6 +32,12 @@ export const useAdminRestaurants = () => {
 
   const refresh = fetchRestaurants
 
+  /**
+   * Assigne ou désassigne un restaurant à un restaurateur
+   * @param restaurantId - ID du restaurant
+   * @param ownerId - ID du restaurateur (null pour désassigner)
+   * @returns ApiResponse avec le restaurant mis à jour
+   */
   const assignRestaurant = async (
     restaurantId: number,
     ownerId: number | null
@@ -51,10 +62,20 @@ export const useAdminRestaurants = () => {
     }
   }
 
+  /**
+   * Trouve le restaurant assigné à un restaurateur donné
+   * @param ownerId - ID du restaurateur
+   * @returns Restaurant trouvé ou undefined
+   */
   const getRestaurantByOwnerId = (ownerId: number): Restaurant | undefined => {
     return restaurants.value.find((r) => r.owner_id === ownerId)
   }
 
+  /**
+   * Retourne la liste des restaurants disponibles (non assignés ou assignés au owner actuel)
+   * @param currentOwnerId - ID du restaurateur en cours d'édition (optionnel)
+   * @returns Liste des restaurants disponibles pour assignation
+   */
   const getAvailableRestaurants = (currentOwnerId?: number): Restaurant[] => {
     return restaurants.value.filter(
       (r) => !r.owner_id || r.owner_id === currentOwnerId
@@ -63,7 +84,7 @@ export const useAdminRestaurants = () => {
 
   return {
     restaurants,
-    pending,
+    pending: showSkeleton,
     error,
     fetchRestaurants,
     refresh,

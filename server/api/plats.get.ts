@@ -1,5 +1,13 @@
 import type { Plat } from "~/types/plat";
 
+/**
+ * GET /api/plats
+ * Récupère la liste de tous les plats disponibles (endpoint public)
+ * @query simulate-error - Mode simulation d'erreur pour les tests (dev uniquement)
+ * @returns Plat[] - Liste de tous les plats
+ * @throws 500 - Erreur serveur ou configuration manquante
+ * @throws 503 - Service temporairement indisponible ou erreur simulée
+ */
 export default defineEventHandler(async (event) => {
   const config = useRuntimeConfig();
 
@@ -34,7 +42,7 @@ export default defineEventHandler(async (event) => {
       headers: {
         apikey: config.supabaseKey,
         Authorization: `Bearer ${config.supabaseKey}`,
-        "Content-Type": "application/json",
+        'Content-Type': 'application/json',
       },
       timeout: 10000,
     });
@@ -66,10 +74,7 @@ export default defineEventHandler(async (event) => {
 
     // Erreur d'authentification
     if (error.statusCode === 401 || error.statusCode === 403) {
-      throw createError({
-        statusCode: 500,
-        statusMessage: "Erreur d'authentification avec la base de données",
-      });
+      throw error;
     }
 
     // Erreur générique

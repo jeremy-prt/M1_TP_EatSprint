@@ -1,6 +1,6 @@
 <template>
   <div
-    class="flex h-[calc(100vh-var(--spacing-header)-4rem)] flex-col overflow-hidden bg-white shadow-[8px_8px_0_#fb923c]"
+    class="flex h-[calc(100vh-var(--spacing-header)-4rem)] -skew-x-3 flex-col overflow-hidden bg-white shadow-[8px_8px_0_#fb923c]"
   >
     <div class="border-b-2 border-gray-200 px-6 py-4">
       <div class="flex items-center justify-between">
@@ -99,26 +99,26 @@
 </template>
 
 <script setup lang="ts">
-import type { User, UserRole } from '~/types/auth'
+import type { User, UserRole } from "~/types/auth";
 
 interface Props {
-  users: User[]
-  loading: boolean
-  error: string
-  getRoleLabel: (role: UserRole) => string
+  users: User[];
+  loading: boolean;
+  error: string;
+  getRoleLabel: (role: UserRole) => string;
 }
 
 withDefaults(defineProps<Props>(), {
   users: () => [],
   loading: false,
-  error: ''
-})
+  error: "",
+});
 
 defineEmits<{
-  'add': []
-  'edit': [user: User]
-  'retry': []
-}>()
+  add: [];
+  edit: [user: User];
+  retry: [];
+}>();
 </script>
 
 <style scoped>

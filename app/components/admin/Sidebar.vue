@@ -1,6 +1,6 @@
 <template>
   <div
-    class="flex h-[calc(100vh-var(--spacing-header)-4rem)] w-64 flex-col bg-white shadow-[8px_8px_0_#fb923c]"
+    class="flex h-[calc(100vh-var(--spacing-header)-4rem)] w-64 -skew-x-3 flex-col bg-white shadow-[8px_8px_0_#fb923c]"
   >
     <nav class="flex-1 overflow-y-auto p-4">
       <ul class="space-y-2">
@@ -17,6 +17,4 @@
   </div>
 </template>
 
-<script setup lang="ts">
-</script>
-
+<script setup lang="ts"></script>

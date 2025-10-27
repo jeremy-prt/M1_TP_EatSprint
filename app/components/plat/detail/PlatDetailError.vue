@@ -15,6 +15,8 @@
   </div>
 </template>
 
-<script setup>
-defineEmits(["retry"]);
+<script setup lang="ts">
+defineEmits<{
+  retry: []
+}>()
 </script>

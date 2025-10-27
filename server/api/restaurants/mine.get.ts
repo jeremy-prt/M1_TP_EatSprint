@@ -1,6 +1,16 @@
 import type { Restaurant } from '~/types/restaurant'
 import type { User } from '~/types/auth'
 
+/**
+ * GET /api/restaurants/mine
+ * Récupère la liste des restaurants appartenant à l'utilisateur connecté
+ * @requires Cookie auth_user_id - Utilisateur doit être restaurant_owner
+ * @returns Restaurant[] - Liste des restaurants du propriétaire
+ * @throws 401 - Non authentifié
+ * @throws 403 - Accès interdit (non restaurant_owner)
+ * @throws 500 - Erreur serveur ou configuration manquante
+ * @throws 503 - Service temporairement indisponible
+ */
 export default defineEventHandler(async (event) => {
   const config = useRuntimeConfig()
 
