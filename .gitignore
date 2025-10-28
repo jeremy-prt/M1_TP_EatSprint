@@ -26,5 +26,9 @@ CLAUDE.md
 .env.*
 !.env.example
 
+# Tests
+test-results/
+playwright-report/
+
 AUTHENTICATION.md
 PLAN_TEST_AUTH.md

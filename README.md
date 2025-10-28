@@ -2,7 +2,6 @@
 
 [![Deployment Status](https://therealsujitk-vercel-badge.vercel.app/?app=m1-tp-eat-sprint&style=for-the-badge)](https://m1-tp-eat-sprint.vercel.app/)
 [![CI Status](https://github.com/jeremy-prt/M1_TP_EatSprint/actions/workflows/ci.yml/badge.svg)](https://github.com/jeremy-prt/M1_TP_EatSprint/actions/workflows/ci.yml)
-[![Tests](https://img.shields.io/badge/tests-25%20passed-brightgreen?style=flat-square)]()
 
 Application de livraison de repas en ligne développée avec Nuxt 4.
 
@@ -43,5 +42,7 @@ npm run build        # Build de production
 npm run preview      # Prévisualiser le build
 npm run generate     # Générer un site statique
 npm test             # Lancer les tests unitaires
-npm run test:watch   # Tests en mode watch
+npm run test:watch   # Tests unitaires en mode watch
+npm run test:e2e     # Lancer les tests e2e avec Playwright
+npm run test:e2e:ui  # Tests e2e en mode UI
 ```

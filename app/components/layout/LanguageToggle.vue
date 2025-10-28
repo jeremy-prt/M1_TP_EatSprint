@@ -1,7 +1,7 @@
 <template>
   <button
     @click="toggleLocale"
-    class="relative bottom-[3px] flex h-12 w-24 items-center rounded-full bg-white p-1 shadow-[4px_4px_0_black] transition-all duration-500"
+    class="relative bottom-[3px] flex h-12 w-24 items-center rounded-full bg-white/80 p-1 shadow-[4px_4px_0_black] transition-all duration-500"
     :aria-label="locale === 'fr' ? 'Switch to English' : 'Passer en français'"
   >
     <div
@@ -28,15 +28,18 @@ const route = useRoute();
 const toast = useToast();
 
 const isBackoffice = computed(() => {
-  return route.path.startsWith('/admin') || route.path.startsWith('/restaurant-owner');
+  return (
+    route.path.startsWith("/admin") ||
+    route.path.startsWith("/restaurant-owner")
+  );
 });
 
 const showBackofficeWarning = () => {
-  toast.warning(t('nav.backofficeNoTranslation'));
+  toast.warning(t("nav.backofficeNoTranslation"));
 };
 
 const toggleLocale = () => {
-  if (isBackoffice.value && locale.value === 'fr') {
+  if (isBackoffice.value && locale.value === "fr") {
     showBackofficeWarning();
     return;
   }
@@ -44,12 +47,16 @@ const toggleLocale = () => {
   setLocale(locale.value === "fr" ? "en" : "fr");
 };
 
-watch(() => route.path, (newPath) => {
-  const isEnteringBackoffice = newPath.startsWith('/admin') || newPath.startsWith('/restaurant-owner');
+watch(
+  () => route.path,
+  (newPath) => {
+    const isEnteringBackoffice =
+      newPath.startsWith("/admin") || newPath.startsWith("/restaurant-owner");
 
-  if (isEnteringBackoffice && locale.value === 'en') {
-    setLocale('fr');
-    showBackofficeWarning();
-  }
-});
+    if (isEnteringBackoffice && locale.value === "en") {
+      setLocale("fr");
+      showBackofficeWarning();
+    }
+  },
+);
 </script>

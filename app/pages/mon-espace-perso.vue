@@ -3,7 +3,7 @@
     <div
       class="-skew-x-3 overflow-hidden border-4 border-black bg-white/70 p-8 shadow-[6px_6px_0_black] backdrop-blur-xs transition-all"
     >
-      <div class="mb-6 border-b border-gray-200 pb-6">
+      <div v-if="!isLoggingOut" class="mb-6 border-b border-gray-200 pb-6">
         <h2 class="mb-4 text-2xl font-bold">{{ $t('account.myInfo.title') }}</h2>
         <div class="space-y-2">
           <p>
@@ -37,7 +37,7 @@
         </div>
       </div>
 
-      <div class="mb-6">
+      <div v-if="!isLoggingOut" class="mb-6">
         <h2 class="mb-4 text-2xl font-bold">{{ $t('account.quickAccess.title') }}</h2>
         <div class="flex flex-wrap gap-4">
           <NuxtLink
@@ -67,11 +67,17 @@
         <div class="mt-8">
           <button
             @click="handleLogout"
-            class="button-cta bg-accent inline-flex -skew-x-6 cursor-pointer items-center justify-center border-none px-8 py-3 text-xl font-bold text-white shadow-[6px_6px_0_black] transition-all duration-150 focus:outline-none"
+            :disabled="isLoggingOut"
+            class="button-cta bg-accent inline-flex -skew-x-6 cursor-pointer items-center justify-center gap-2 border-none px-8 py-3 text-xl font-bold text-white shadow-[6px_6px_0_black] transition-all duration-150 focus:outline-none disabled:cursor-not-allowed disabled:opacity-70"
           >
+            <Icon v-if="isLoggingOut" name="mdi:loading" size="24" class="animate-spin skew-x-6" />
             <span class="skew-x-6 italic"> {{ $t('account.logout') }} </span>
           </button>
         </div>
+      </div>
+
+      <div v-if="isLoggingOut" class="flex min-h-[300px] items-center justify-center">
+        <Icon name="mdi:loading" size="48" class="text-primary animate-spin" />
       </div>
     </div>
   </div>
@@ -80,6 +86,7 @@
 <script setup lang="ts">
 const { t, locale } = useI18n()
 const authStore = useAuthStore();
+const isLoggingOut = ref(false);
 
 definePageMeta({
   middleware: "auth",
@@ -115,11 +122,13 @@ const roleLabel = computed(() => {
 });
 
 const handleLogout = async () => {
+  isLoggingOut.value = true;
   try {
     await authStore.logout();
     navigateTo("/restaurants");
   } catch (error) {
     console.error("Erreur lors de la déconnexion:", error);
+    isLoggingOut.value = false;
   }
 };
 </script>

@@ -3,7 +3,7 @@
     <div class="mx-auto max-w-3xl">
       <div class="relative">
         <div
-          class="-skew-x-12 overflow-hidden bg-white/70 shadow-[6px_6px_0_#fb923c] transition-all duration-300 focus-within:shadow-[8px_8px_0_#fb923c] hover:shadow-[8px_8px_0_#fb923c]"
+          class="-skew-x-12 overflow-hidden bg-white/70 shadow-[6px_6px_0_#fb923c] backdrop-blur-xs transition-all duration-300 focus-within:shadow-[8px_8px_0_#fb923c] hover:shadow-[8px_8px_0_#fb923c]"
         >
           <div class="flex skew-x-12 items-center gap-3 px-5 py-4">
             <Icon
@@ -34,5 +34,5 @@
 </template>
 
 <script setup lang="ts">
-const searchQuery = defineModel<string>({ default: '' })
+const searchQuery = defineModel<string>({ default: "" });
 </script>
