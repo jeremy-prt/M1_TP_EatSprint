@@ -56,7 +56,7 @@ export const useAuthStore = defineStore('auth', {
           body: credentials
         })
 
-        this.user = user
+        this.user = user ?? null
         this.isAuthenticated = true
 
         return { success: true, user }
@@ -79,7 +79,7 @@ export const useAuthStore = defineStore('auth', {
           body: data
         })
 
-        this.user = user
+        this.user = user ?? null
         this.isAuthenticated = true
 
         return { success: true, user }
@@ -119,7 +119,7 @@ export const useAuthStore = defineStore('auth', {
       try {
         const { user } = await $fetch('/api/auth/me')
 
-        this.user = user
+        this.user = user ?? null
         this.isAuthenticated = true
 
         return { success: true, user }
