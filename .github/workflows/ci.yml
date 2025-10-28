@@ -31,6 +31,9 @@ jobs:
 
       - name: Run e2e tests
         run: npm run test:e2e
+        env:
+          NUXT_SUPABASE_URL: ${{ secrets.NUXT_SUPABASE_URL }}
+          NUXT_SUPABASE_KEY: ${{ secrets.NUXT_SUPABASE_KEY }}
 
       - name: Upload Playwright report
         uses: actions/upload-artifact@v4
@@ -42,6 +45,9 @@ jobs:
 
       - name: Build project
         run: npm run build
+        env:
+          NUXT_SUPABASE_URL: ${{ secrets.NUXT_SUPABASE_URL }}
+          NUXT_SUPABASE_KEY: ${{ secrets.NUXT_SUPABASE_KEY }}
 
   deploy:
     needs: test-and-build
