@@ -25,8 +25,25 @@
 
 <script setup lang="ts">
 definePageMeta({
-  ssr: false,
   layout: false,
+});
+
+useSeoMeta({
+  title: "EatSprint - Livraison rapide de vos plats préférés",
+  description:
+    "Commandez dans vos restaurants favoris et faites-vous livrer rapidement. Découvrez nos restaurants et profitez d'une livraison express.",
+  ogTitle: "EatSprint - Livraison rapide de vos plats préférés",
+  ogDescription:
+    "Commandez dans vos restaurants favoris et faites-vous livrer rapidement. Découvrez nos restaurants et profitez d'une livraison express.",
+  ogImage: "/assets/logo_new.png",
+  ogType: "website",
+  twitterCard: "summary_large_image",
+});
+
+useHead({
+  htmlAttrs: {
+    lang: "fr",
+  },
 });
 </script>
 

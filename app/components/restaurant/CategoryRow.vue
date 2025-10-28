@@ -18,14 +18,14 @@
       <div class="flex gap-2">
         <button
           @click="scrollPrev"
-          class="bg-secondary hover:bg-primary flex h-10 w-10 cursor-pointer items-center justify-center rounded-full border-none shadow-[3px_3px_0_black] transition-all hover:scale-110 active:scale-95"
+          class="bg-secondary hover:bg-primary flex h-10 w-10 cursor-pointer items-center justify-center rounded-full border-none shadow-[3px_3px_0_black] transition-all active:translate-x-[1.5px] active:translate-y-[1.5px] active:shadow-[1.5px_1.5px_0_black]"
           aria-label="Précédent"
         >
           <Icon name="mdi:chevron-left" size="24" class="text-white" />
         </button>
         <button
           @click="scrollNext"
-          class="bg-secondary hover:bg-primary flex h-10 w-10 cursor-pointer items-center justify-center rounded-full border-none shadow-[3px_3px_0_black] transition-all hover:scale-110 active:scale-95"
+          class="bg-secondary hover:bg-primary flex h-10 w-10 cursor-pointer items-center justify-center rounded-full border-none shadow-[3px_3px_0_black] transition-all active:translate-x-[1.5px] active:translate-y-[1.5px] active:shadow-[1.5px_1.5px_0_black]"
           aria-label="Suivant"
         >
           <Icon name="mdi:chevron-right" size="24" class="text-white" />

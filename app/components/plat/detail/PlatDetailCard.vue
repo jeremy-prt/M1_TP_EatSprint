@@ -111,7 +111,7 @@
                 <button
                   @click="decrementQuantity"
                   :disabled="quantity <= 1"
-                  class="bg-secondary hover:bg-primary flex h-10 w-10 cursor-pointer items-center justify-center rounded-full border-none shadow-[3px_3px_0_black] transition-all hover:scale-110 active:scale-95 disabled:cursor-not-allowed disabled:opacity-50"
+                  class="bg-secondary hover:bg-primary flex h-10 w-10 cursor-pointer items-center justify-center rounded-full border-none shadow-[3px_3px_0_black] transition-all active:translate-x-[1.5px] active:translate-y-[1.5px] active:shadow-[1.5px_1.5px_0_black] disabled:cursor-not-allowed disabled:opacity-50"
                   aria-label="Diminuer la quantité"
                 >
                   <Icon name="mdi:minus" size="24" class="text-white" />
@@ -121,7 +121,7 @@
                 }}</span>
                 <button
                   @click="incrementQuantity"
-                  class="bg-secondary hover:bg-primary flex h-10 w-10 cursor-pointer items-center justify-center rounded-full border-none shadow-[3px_3px_0_black] transition-all hover:scale-110 active:scale-95"
+                  class="bg-secondary hover:bg-primary flex h-10 w-10 cursor-pointer items-center justify-center rounded-full border-none shadow-[3px_3px_0_black] transition-all active:translate-x-[1.5px] active:translate-y-[1.5px] active:shadow-[1.5px_1.5px_0_black]"
                   aria-label="Augmenter la quantité"
                 >
                   <Icon name="mdi:plus" size="24" class="text-white" />
@@ -154,6 +154,7 @@ interface Props {
 
 const props = defineProps<Props>()
 
+const cart = useCart()
 const quantity = ref(1)
 
 const incrementQuantity = () => {
@@ -167,6 +168,9 @@ const decrementQuantity = () => {
 }
 
 const addToCart = () => {
-  console.log(`Ajout au panier : ${props.plat.nom} x ${quantity.value}`)
+  console.log('🎯 addToCart appelé pour:', props.plat.nom, 'quantité:', quantity.value)
+  cart.addItem(props.plat, quantity.value)
+  console.log('✅ Après cart.addItem')
+  quantity.value = 1
 }
 </script>

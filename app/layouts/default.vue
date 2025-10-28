@@ -7,6 +7,7 @@
     >
       <slot />
     </main>
+    <CartWidget />
     <UiToast />
   </div>
 </template>
