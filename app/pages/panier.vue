@@ -4,7 +4,7 @@
       <h1
         class="text-primary mb-8 text-center text-5xl font-extrabold uppercase md:text-6xl"
       >
-        Mon Panier
+        {{ $t('cart.title') }}
       </h1>
 
       <CartEmpty v-if="isEmpty" />
@@ -28,6 +28,7 @@
 </template>
 
 <script setup lang="ts">
+const { t, locale } = useI18n()
 const { isEmpty, items, totalPrice, decrementQuantity, incrementQuantity, removeItem, clearCart } = useCart()
 const orderStore = useOrderStore()
 const toast = useToast()
@@ -39,10 +40,10 @@ definePageMeta({
 })
 
 useSeoMeta({
-  title: 'Mon Panier - EatSprint',
-  description: 'Consultez et modifiez les articles de votre panier',
-  ogTitle: 'Mon Panier - EatSprint',
-  ogDescription: 'Consultez et modifiez les articles de votre panier',
+  title: () => t('pages.cart.title'),
+  description: () => t('pages.cart.description'),
+  ogTitle: () => t('pages.cart.ogTitle'),
+  ogDescription: () => t('pages.cart.ogDescription'),
   ogImage: '/assets/logo_new.png',
   ogType: 'website',
   twitterCard: 'summary_large_image',
@@ -50,7 +51,7 @@ useSeoMeta({
 
 useHead({
   htmlAttrs: {
-    lang: 'fr',
+    lang: () => locale.value,
   },
 })
 
@@ -66,14 +67,14 @@ const handleRemove = (platId: number) => {
   const item = items.value.find((i) => i.plat.id === platId)
   if (item) {
     removeItem(platId)
-    toast.success(`${item.plat.nom} retiré du panier`)
+    toast.success(t('cart.messages.removed', { name: item.plat.nom }))
   }
 }
 
 const handleClear = () => {
-  if (confirm('Êtes-vous sûr de vouloir vider votre panier ?')) {
+  if (confirm(t('cart.messages.confirmClear'))) {
     clearCart()
-    toast.success('Panier vidé')
+    toast.success(t('cart.messages.cleared'))
   }
 }
 
@@ -96,12 +97,12 @@ const handleOrder = async () => {
 
     clearCart()
 
-    toast.success('Commande passée avec succès !')
+    toast.success(t('cart.messages.orderSuccess'))
 
-    navigateTo('/mon-espace-perso')
+    navigateTo('/mes-commandes')
   } catch (error: any) {
     console.error('Erreur lors de la commande:', error)
-    toast.error(error.data?.message || 'Erreur lors de la commande')
+    toast.error(error.data?.message || t('cart.messages.orderError'))
   } finally {
     isOrdering.value = false
   }

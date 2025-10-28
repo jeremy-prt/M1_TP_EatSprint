@@ -5,7 +5,7 @@
   <!-- Affichage de l'erreur avec bouton retry -->
   <RestaurantCategoryError
     v-else-if="error"
-    :categorie="categorie"
+    :category-key="categoryKey"
     @retry="refresh"
   />
 
@@ -13,20 +13,20 @@
   <div v-else>
     <div class="mb-4 flex items-center justify-between pr-6">
       <h2 class="text-accent relative left-12 text-2xl font-bold italic">
-        {{ categorie }}
+        {{ categoryLabel }}
       </h2>
       <div class="flex gap-2">
         <button
           @click="scrollPrev"
           class="bg-secondary hover:bg-primary flex h-10 w-10 cursor-pointer items-center justify-center rounded-full border-none shadow-[3px_3px_0_black] transition-all active:translate-x-[1.5px] active:translate-y-[1.5px] active:shadow-[1.5px_1.5px_0_black]"
-          aria-label="Précédent"
+          :aria-label="$t('restaurants.navigation.previous')"
         >
           <Icon name="mdi:chevron-left" size="24" class="text-white" />
         </button>
         <button
           @click="scrollNext"
           class="bg-secondary hover:bg-primary flex h-10 w-10 cursor-pointer items-center justify-center rounded-full border-none shadow-[3px_3px_0_black] transition-all active:translate-x-[1.5px] active:translate-y-[1.5px] active:shadow-[1.5px_1.5px_0_black]"
-          aria-label="Suivant"
+          :aria-label="$t('restaurants.navigation.next')"
         >
           <Icon name="mdi:chevron-right" size="24" class="text-white" />
         </button>
@@ -39,7 +39,7 @@
           v-if="restaurantsFiltered.length === 0"
           class="pl-5 text-gray-500"
         >
-          Aucun restaurant dans cette catégorie
+          {{ $t('restaurants.empty.noCategory') }}
         </p>
 
         <!-- Liste des restaurants -->
@@ -90,17 +90,32 @@
 
 <script setup lang="ts">
 interface Props {
-  categorie: string
+  categoryKey: string
 }
 
 const props = defineProps<Props>()
+const { t } = useI18n()
+
+// Mapping des clés de catégories vers les noms français de la DB
+const categoryDbNames: Record<string, string> = {
+  'new': 'Nouveau',
+  'trending': 'Tendance',
+  'budget': 'Petit prix',
+  'gourmet': 'Gastronomique'
+}
+
+// Nom de catégorie pour la DB (toujours en français)
+const categoryDbName = categoryDbNames[props.categoryKey] || props.categoryKey
+
+// Label traduit à afficher
+const categoryLabel = computed(() => t(`restaurants.categories.${props.categoryKey}`))
 
 // POUR TESTER LES ERREURS : Faut passer true dans useRestaurants, ça permet de test l'affichage d'erreur
 const { getRestaurantsByCategorie, pending, error, refresh } = useRestaurants()
 const scrollContainer = ref<HTMLElement | null>(null)
 
 const restaurantsFiltered = computed(() =>
-  getRestaurantsByCategorie(props.categorie)
+  getRestaurantsByCategorie(categoryDbName)
 )
 
 const scrollPrev = () => {

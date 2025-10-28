@@ -9,13 +9,13 @@
         class="mx-auto mb-4 text-gray-400"
       />
       <h2 class="mb-4 text-2xl font-bold text-gray-700">
-        Votre panier est vide
+        {{ $t('cart.empty.title') }}
       </h2>
       <p class="mb-6 text-gray-600">
-        Découvrez nos restaurants et ajoutez des plats à votre panier !
+        {{ $t('cart.empty.description') }}
       </p>
       <UiButtonHighlight to="/restaurants">
-        Découvrir les restaurants
+        {{ $t('cart.empty.cta') }}
       </UiButtonHighlight>
     </div>
   </div>

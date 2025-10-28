@@ -15,7 +15,7 @@
         >
           <div>
             <h3 class="text-lg font-bold text-gray-800">
-              Commande #{{ order.id }}
+              {{ $t('orders.orderNumber') }}{{ order.id }}
             </h3>
             <p class="text-sm text-gray-600">
               {{ formatDate(order.created_at) }}
@@ -45,7 +45,7 @@
                 >{{ item.quantity }}x</span
               >
               <span class="text-gray-800">{{
-                item.plat?.nom || "Plat inconnu"
+                item.plat?.nom || $t('orders.unknownDish')
               }}</span>
             </div>
             <span class="font-semibold text-gray-700">
@@ -61,6 +61,8 @@
 <script setup lang="ts">
 import type { OrderWithItems, OrderStatus } from "~/types/order";
 
+const { t, locale } = useI18n()
+
 defineProps<{
   orders: OrderWithItems[];
   loading: boolean;
@@ -68,7 +70,7 @@ defineProps<{
 
 const formatDate = (dateString: string): string => {
   const date = new Date(dateString);
-  return new Intl.DateTimeFormat("fr-FR", {
+  return new Intl.DateTimeFormat(locale.value, {
     year: "numeric",
     month: "long",
     day: "numeric",
@@ -78,15 +80,7 @@ const formatDate = (dateString: string): string => {
 };
 
 const getStatusLabel = (status: OrderStatus): string => {
-  const labels: Record<OrderStatus, string> = {
-    en_attente: "En attente",
-    confirmee: "Confirmée",
-    en_preparation: "En préparation",
-    en_livraison: "En livraison",
-    livree: "Livrée",
-    annulee: "Annulée",
-  };
-  return labels[status] || status;
+  return t(`orders.status.${status}`, status);
 };
 
 const getStatusClass = (status: OrderStatus): string => {

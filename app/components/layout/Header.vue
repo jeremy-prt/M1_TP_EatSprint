@@ -1,6 +1,6 @@
 <template>
   <header
-    class="h-header bg-secondary fixed top-0 z-50 w-full overflow-visible"
+    class="h-header bg-secondary fixed top-0 z-50 w-full overflow-visible shadow-[6px_6px_0_black]"
   >
     <div class="container mx-auto h-full px-4">
       <nav
@@ -11,13 +11,13 @@
             to="/restaurants"
             class="group relative text-white transition-all duration-300 hover:-translate-y-0.5"
           >
-            <span class="relative z-10">Nos restaurants</span>
+            <span class="relative z-10">{{ $t("nav.restaurants") }}</span>
           </NuxtLink>
           <NuxtLink
             to="/histoire"
             class="group relative text-white transition-all duration-300 hover:-translate-y-0.5"
           >
-            <span class="relative z-10">Notre histoire</span>
+            <span class="relative z-10">{{ $t("nav.story") }}</span>
           </NuxtLink>
         </div>
 
@@ -37,14 +37,9 @@
             to="/mon-espace-perso"
             class="group relative text-white transition-all duration-300 hover:-translate-y-0.5"
           >
-            <span class="relative z-10">Mon espace perso</span>
+            <span class="relative z-10">{{ $t("nav.account") }}</span>
           </NuxtLink>
-          <NuxtLink
-            to="/contact"
-            class="group relative text-white transition-all duration-300 hover:-translate-y-0.5"
-          >
-            <span class="relative z-10">Contact</span>
-          </NuxtLink>
+          <LayoutLanguageToggle />
         </div>
       </nav>
     </div>

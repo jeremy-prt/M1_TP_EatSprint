@@ -1,0 +1,251 @@
+{
+  "nav": {
+    "restaurants": "Nos restaurants",
+    "story": "Notre histoire",
+    "account": "Mon espace perso",
+    "backofficeNoTranslation": "Le back-office n'est disponible qu'en français"
+  },
+  "pages": {
+    "restaurants": {
+      "title": "Nos Restaurants - EatSprint",
+      "description": "Découvrez notre sélection de restaurants : nouveautés, tendances, petits prix et gastronomie. Commandez en ligne et profitez de la livraison rapide.",
+      "ogTitle": "Nos Restaurants - EatSprint",
+      "ogDescription": "Découvrez notre sélection de restaurants : nouveautés, tendances, petits prix et gastronomie."
+    },
+    "cart": {
+      "title": "Mon Panier - EatSprint",
+      "description": "Consultez et modifiez les articles de votre panier",
+      "ogTitle": "Mon Panier - EatSprint",
+      "ogDescription": "Consultez et modifiez les articles de votre panier"
+    },
+    "story": {
+      "title": "Notre Histoire - EatSprint",
+      "description": "Page de démonstration du projet EatSprint",
+      "ogTitle": "Notre Histoire - EatSprint",
+      "ogDescription": "Page de démonstration du projet EatSprint"
+    },
+    "account": {
+      "title": "Mon Espace Perso - EatSprint",
+      "description": "Gérez votre compte, consultez vos informations personnelles et accédez à vos commandes",
+      "ogTitle": "Mon Espace Perso - EatSprint",
+      "ogDescription": "Gérez votre compte et consultez vos informations personnelles"
+    },
+    "login": {
+      "title": "Connexion - EatSprint",
+      "description": "Connectez-vous à votre compte EatSprint",
+      "ogTitle": "Connexion - EatSprint",
+      "ogDescription": "Connectez-vous à votre compte EatSprint"
+    },
+    "register": {
+      "title": "Inscription - EatSprint",
+      "description": "Créez votre compte EatSprint",
+      "ogTitle": "Inscription - EatSprint",
+      "ogDescription": "Créez votre compte EatSprint"
+    },
+    "orders": {
+      "title": "Mes Commandes - EatSprint",
+      "description": "Consultez l'historique de vos commandes",
+      "ogTitle": "Mes Commandes - EatSprint",
+      "ogDescription": "Consultez l'historique de vos commandes"
+    }
+  },
+  "restaurants": {
+    "search": {
+      "placeholder": "Rechercher un restaurant par nom..."
+    },
+    "categories": {
+      "new": "Nouveau",
+      "trending": "Tendance",
+      "budget": "Petit prix",
+      "gourmet": "Gastronomique"
+    },
+    "navigation": {
+      "previous": "Précédent",
+      "next": "Suivant"
+    },
+    "empty": {
+      "noResults": "Aucun restaurant trouvé",
+      "noCategory": "Aucun restaurant dans cette catégorie"
+    },
+    "error": {
+      "title": "Erreur de chargement",
+      "description": "Impossible de charger les restaurants pour cette catégorie.",
+      "retry": "Réessayer"
+    }
+  },
+  "plats": {
+    "breadcrumb": {
+      "separator": ">",
+      "loading": "Chargement..."
+    },
+    "empty": {
+      "noDishes": "Aucun plat disponible pour ce restaurant"
+    },
+    "error": {
+      "title": "Erreur lors du chargement des plats",
+      "retry": "Réessayer"
+    },
+    "units": {
+      "minutes": " min",
+      "calories": " cal"
+    },
+    "detail": {
+      "notFound": "Plat introuvable",
+      "loadingError": "Erreur lors du chargement du plat",
+      "retry": "Réessayer",
+      "badges": {
+        "vegetarian": "Végétarien",
+        "vegan": "Vegan",
+        "spicy": "Épicé",
+        "unavailable": "Indisponible"
+      },
+      "allergens": "Allergènes",
+      "quantity": {
+        "decrease": "Diminuer la quantité",
+        "increase": "Augmenter la quantité"
+      },
+      "addToCart": "Ajouter au panier",
+      "unavailable": "Indisponible"
+    }
+  },
+  "seo": {
+    "restaurant": {
+      "titleSuffix": "Menu et Plats | EatSprint",
+      "description": "Découvrez le menu complet de {name} à {city}. Note : {rating}/5. Commandez en ligne pour une livraison rapide.",
+      "ogDescription": "Découvrez le menu de {name} à {city}. Note : {rating}/5"
+    },
+    "plat": {
+      "description": "{description} - {price}€. Temps de préparation : {time} min. {calories} cal. Commandez chez {restaurant}."
+    }
+  },
+  "ui": {
+    "button": {
+      "default": "Cliquez ici"
+    }
+  },
+  "cart": {
+    "title": "Mon Panier",
+    "widget": {
+      "title": "Mon panier"
+    },
+    "empty": {
+      "title": "Votre panier est vide",
+      "description": "Découvrez nos restaurants et ajoutez des plats à votre panier !",
+      "cta": "Découvrir les restaurants"
+    },
+    "item": {
+      "perUnit": "€ / unité",
+      "decreaseQty": "Diminuer la quantité",
+      "increaseQty": "Augmenter la quantité",
+      "remove": "Supprimer du panier"
+    },
+    "summary": {
+      "total": "Total",
+      "clear": "Vider le panier",
+      "order": "Commander",
+      "ordering": "Commande en cours..."
+    },
+    "messages": {
+      "removed": "{name} retiré du panier",
+      "confirmClear": "Êtes-vous sûr de vouloir vider votre panier ?",
+      "cleared": "Panier vidé",
+      "orderSuccess": "Commande passée avec succès !",
+      "orderError": "Erreur lors de la commande"
+    }
+  },
+  "story": {
+    "demo": {
+      "title": "Page de démonstration",
+      "description": "Cette page a été créée uniquement pour illustrer la navigation du site et éviter les erreurs 404. Elle ne contient pas de véritable contenu sur l'histoire d'EatSprint, car il s'agit d'un projet académique de démonstration."
+    },
+    "project": {
+      "title": "Projet EatSprint",
+      "description": "EatSprint est une application de livraison de repas développée dans le cadre d'un projet pédagogique. L'objectif principal est de démontrer les compétences techniques suivantes :",
+      "features": {
+        "architecture": "Architecture Nuxt 4 avec SSR et CSR optimisés",
+        "stateManagement": "Gestion d'état avec Pinia et authentification",
+        "backoffice": "Back-office admin et restaurant owner",
+        "design": "Design moderne avec Tailwind CSS v4"
+      }
+    }
+  },
+  "account": {
+    "myInfo": {
+      "title": "Mes informations",
+      "fields": {
+        "name": "Nom",
+        "email": "Email",
+        "role": "Rôle",
+        "address": "Adresse",
+        "city": "Ville"
+      }
+    },
+    "roles": {
+      "admin": "Administrateur",
+      "restaurant_owner": "Restaurateur",
+      "customer": "Client",
+      "unknown": "Inconnu"
+    },
+    "quickAccess": {
+      "title": "Accès rapides",
+      "admin": "Administration",
+      "restaurants": "Mes restaurants",
+      "orders": "Mes commandes"
+    },
+    "logout": "Se déconnecter"
+  },
+  "auth": {
+    "login": {
+      "title": "Connexion",
+      "subtitle": "Connectez-vous à votre compte",
+      "email": "Email",
+      "emailPlaceholder": "votre{'@'}email.com",
+      "password": "Mot de passe",
+      "passwordPlaceholder": "••••••••",
+      "submit": "Se connecter",
+      "submitting": "Connexion...",
+      "noAccount": "Pas encore de compte ?",
+      "signupLink": "S'inscrire",
+      "error": "Erreur lors de la connexion"
+    },
+    "register": {
+      "title": "Inscription",
+      "subtitle": "Créez votre compte EatSprint",
+      "name": "Nom complet",
+      "namePlaceholder": "Jean Dupont",
+      "email": "Email",
+      "emailPlaceholder": "votre{'@'}email.com",
+      "password": "Mot de passe",
+      "passwordPlaceholder": "••••••••",
+      "address": "Adresse",
+      "addressPlaceholder": "123 rue de la Paix",
+      "postalCode": "Code postal",
+      "postalCodePlaceholder": "75001",
+      "city": "Ville",
+      "cityPlaceholder": "Paris",
+      "submit": "S'inscrire",
+      "submitting": "Inscription...",
+      "hasAccount": "Déjà un compte ?",
+      "loginLink": "Se connecter",
+      "error": "Erreur lors de l'inscription"
+    }
+  },
+  "orders": {
+    "title": "Mes Commandes",
+    "orderNumber": "Commande #",
+    "unknownDish": "Plat inconnu",
+    "status": {
+      "en_attente": "En attente",
+      "confirmee": "Confirmée",
+      "en_preparation": "En préparation",
+      "en_livraison": "En livraison",
+      "livree": "Livrée",
+      "annulee": "Annulée"
+    },
+    "empty": {
+      "title": "Aucune commande",
+      "description": "Vous n'avez pas encore passé de commande. Découvrez nos restaurants et commandez vos plats préférés !",
+      "cta": "Découvrir les restaurants"
+    }
+  }
+}

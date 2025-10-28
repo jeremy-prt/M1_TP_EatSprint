@@ -5,7 +5,7 @@
     class="button-cta bg-secondary inline-flex -skew-x-6 cursor-pointer items-center justify-center border-none px-8 py-3 text-2xl font-bold text-white no-underline shadow-[6px_6px_0_black] transition-all duration-150 focus:outline-none"
   >
     <span class="skew-x-6 italic">
-      <slot>Cliquez ici</slot>
+      <slot>{{ $t('ui.button.default') }}</slot>
     </span>
   </NuxtLink>
   <button
@@ -13,7 +13,7 @@
     class="button-cta bg-secondary inline-flex -skew-x-6 cursor-pointer items-center justify-center border-none px-8 py-3 text-2xl font-bold text-white no-underline shadow-[6px_6px_0_black] transition-all duration-150 focus:outline-none"
   >
     <span class="skew-x-6 italic">
-      <slot>Cliquez ici</slot>
+      <slot>{{ $t('ui.button.default') }}</slot>
     </span>
   </button>
 </template>

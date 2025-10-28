@@ -24,7 +24,7 @@
 
           <div class="flex flex-col">
             <span class="text-sm font-semibold text-white uppercase">
-              Mon panier
+              {{ $t('cart.widget.title') }}
             </span>
             <span class="text-xl font-extrabold text-white">
               {{ totalPrice.toFixed(2) }}€

@@ -1,7 +1,7 @@
 <template>
   <div class="w-full px-6">
     <div v-if="filteredRestaurants.length === 0" class="text-center">
-      <p class="text-lg text-gray-500">Aucun restaurant trouvé</p>
+      <p class="text-lg text-gray-500">{{ $t('restaurants.empty.noResults') }}</p>
     </div>
 
     <div

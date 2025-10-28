@@ -8,8 +8,17 @@ export default defineNuxtConfig({
     "@nuxt/icon",
     "@nuxt/image",
     "@pinia/nuxt",
-    "pinia-plugin-persistedstate/nuxt"
+    "pinia-plugin-persistedstate/nuxt",
+    "@nuxtjs/i18n",
   ],
+  i18n: {
+    defaultLocale: "fr",
+    strategy: "no_prefix",
+    locales: [
+      { code: "fr", name: "Français", file: "fr.json" },
+      { code: "en", name: "English", file: "en.json" },
+    ],
+  },
   vite: {
     plugins: [tailwindcss()],
   },
@@ -18,12 +27,12 @@ export default defineNuxtConfig({
     supabaseKey: process.env.NUXT_SUPABASE_KEY,
   },
   routeRules: {
-    '/auth/login': { ssr: false },
-    '/auth/register': { ssr: false },
-    '/mon-espace-perso': { ssr: false },
-    '/panier': { ssr: false },
-    '/commandes': { ssr: false },
-    '/admin/**': { ssr: false },
-    '/dashboard/**': { ssr: false }
-  }
+    "/auth/login": { ssr: false },
+    "/auth/register": { ssr: false },
+    "/mon-espace-perso": { ssr: false },
+    "/panier": { ssr: false },
+    "/commandes": { ssr: false },
+    "/admin/**": { ssr: false },
+    "/dashboard/**": { ssr: false },
+  },
 });

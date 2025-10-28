@@ -23,7 +23,7 @@
           {{ item.plat.nom }}
         </h3>
         <p class="text-accent text-lg font-bold">
-          {{ item.plat.prix.toFixed(2) }}€ / unité
+          {{ item.plat.prix.toFixed(2) }}{{ $t('cart.item.perUnit') }}
         </p>
       </div>
 
@@ -31,7 +31,7 @@
         <button
           @click="handleDecrement"
           class="bg-secondary hover:bg-primary flex h-8 w-8 cursor-pointer items-center justify-center rounded-full border-none shadow-[2px_2px_0_black] transition-all active:translate-x-[1px] active:translate-y-[1px] active:shadow-[1px_1px_0_black]"
-          aria-label="Diminuer la quantité"
+          :aria-label="$t('cart.item.decreaseQty')"
         >
           <Icon name="mdi:minus" size="20" class="text-white" />
         </button>
@@ -41,7 +41,7 @@
         <button
           @click="handleIncrement"
           class="bg-secondary hover:bg-primary flex h-8 w-8 cursor-pointer items-center justify-center rounded-full border-none shadow-[2px_2px_0_black] transition-all active:translate-x-[1px] active:translate-y-[1px] active:shadow-[1px_1px_0_black]"
-          aria-label="Augmenter la quantité"
+          :aria-label="$t('cart.item.increaseQty')"
         >
           <Icon name="mdi:plus" size="20" class="text-white" />
         </button>
@@ -54,7 +54,7 @@
         <button
           @click="handleRemove"
           class="flex h-10 w-10 cursor-pointer items-center justify-center rounded-full border-none bg-red-500 shadow-[2px_2px_0_black] transition-all active:translate-x-[1px] active:translate-y-[1px] active:shadow-[1px_1px_0_black]"
-          aria-label="Supprimer du panier"
+          :aria-label="$t('cart.item.remove')"
         >
           <Icon name="mdi:delete" size="24" class="text-white" />
         </button>

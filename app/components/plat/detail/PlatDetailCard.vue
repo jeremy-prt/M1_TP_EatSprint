@@ -31,16 +31,16 @@
               <div v-if="plat.vegetarien" class="flex items-center gap-2">
                 <Icon name="mdi:leaf" size="16" class="text-green-400" />
                 <span class="text-sm font-semibold text-white">
-                  Végétarien
+                  {{ $t('plats.detail.badges.vegetarian') }}
                 </span>
               </div>
               <div v-if="plat.vegan" class="flex items-center gap-2">
                 <Icon name="mdi:sprout" size="16" class="text-green-500" />
-                <span class="text-sm font-semibold text-white"> Vegan </span>
+                <span class="text-sm font-semibold text-white">{{ $t('plats.detail.badges.vegan') }}</span>
               </div>
               <div v-if="plat.epice" class="flex items-center gap-2">
                 <Icon name="mdi:chili-hot" size="16" class="text-red-400" />
-                <span class="text-sm font-semibold text-white"> Épicé </span>
+                <span class="text-sm font-semibold text-white">{{ $t('plats.detail.badges.spicy') }}</span>
               </div>
               <div v-if="!plat.disponible" class="flex items-center gap-2">
                 <Icon
@@ -49,7 +49,7 @@
                   class="text-gray-400"
                 />
                 <span class="text-sm font-semibold text-white">
-                  Indisponible
+                  {{ $t('plats.detail.badges.unavailable') }}
                 </span>
               </div>
             </div>
@@ -70,12 +70,12 @@
             <div class="flex items-center gap-2">
               <Icon name="mdi:clock-outline" size="20" class="text-blue-400" />
               <span class="font-semibold"
-                >{{ plat.temps_preparation_min }} min</span
+                >{{ plat.temps_preparation_min }}{{ $t('plats.units.minutes') }}</span
               >
             </div>
             <div class="flex items-center gap-2">
               <Icon name="mdi:fire" size="20" class="text-orange-400" />
-              <span class="font-semibold">{{ plat.calories }} cal</span>
+              <span class="font-semibold">{{ plat.calories }}{{ $t('plats.units.calories') }}</span>
             </div>
           </div>
 
@@ -86,7 +86,7 @@
                 size="20"
                 class="text-yellow-500"
               />
-              <span class="font-bold text-gray-800">Allergènes</span>
+              <span class="font-bold text-gray-800">{{ $t('plats.detail.allergens') }}</span>
             </div>
             <div class="flex flex-wrap gap-2">
               <span
@@ -112,7 +112,7 @@
                   @click="decrementQuantity"
                   :disabled="quantity <= 1"
                   class="bg-secondary hover:bg-primary flex h-10 w-10 cursor-pointer items-center justify-center rounded-full border-none shadow-[3px_3px_0_black] transition-all active:translate-x-[1.5px] active:translate-y-[1.5px] active:shadow-[1.5px_1.5px_0_black] disabled:cursor-not-allowed disabled:opacity-50"
-                  aria-label="Diminuer la quantité"
+                  :aria-label="$t('plats.detail.quantity.decrease')"
                 >
                   <Icon name="mdi:minus" size="24" class="text-white" />
                 </button>
@@ -122,20 +122,20 @@
                 <button
                   @click="incrementQuantity"
                   class="bg-secondary hover:bg-primary flex h-10 w-10 cursor-pointer items-center justify-center rounded-full border-none shadow-[3px_3px_0_black] transition-all active:translate-x-[1.5px] active:translate-y-[1.5px] active:shadow-[1.5px_1.5px_0_black]"
-                  aria-label="Augmenter la quantité"
+                  :aria-label="$t('plats.detail.quantity.increase')"
                 >
                   <Icon name="mdi:plus" size="24" class="text-white" />
                 </button>
               </div>
 
               <UiButtonHighlight v-if="plat.disponible" @click="addToCart">
-                Ajouter au panier
+                {{ $t('plats.detail.addToCart') }}
               </UiButtonHighlight>
               <div
                 v-else
                 class="button-cta bg-secondary inline-flex -skew-x-12 cursor-not-allowed items-center justify-center border-none px-8 py-3 text-2xl font-bold text-white opacity-50"
               >
-                <span class="skew-x-12">Indisponible</span>
+                <span class="skew-x-12">{{ $t('plats.detail.unavailable') }}</span>
               </div>
             </div>
           </div>

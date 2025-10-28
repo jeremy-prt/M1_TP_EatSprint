@@ -6,7 +6,7 @@
       <PlatGrid
         :plats="plats"
         :pending="pending"
-        :error="error"
+        :error="!!error"
         @retry="refresh"
       />
     </div>

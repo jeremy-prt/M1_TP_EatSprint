@@ -1,0 +1,251 @@
+{
+  "nav": {
+    "restaurants": "Our restaurants",
+    "story": "Our story",
+    "account": "My account",
+    "backofficeNoTranslation": "The back-office is only available in French"
+  },
+  "pages": {
+    "restaurants": {
+      "title": "Our Restaurants - EatSprint",
+      "description": "Discover our selection of restaurants: new arrivals, trends, budget-friendly options and gourmet cuisine. Order online and enjoy fast delivery.",
+      "ogTitle": "Our Restaurants - EatSprint",
+      "ogDescription": "Discover our selection of restaurants: new arrivals, trends, budget-friendly options and gourmet cuisine."
+    },
+    "cart": {
+      "title": "My Cart - EatSprint",
+      "description": "View and modify items in your cart",
+      "ogTitle": "My Cart - EatSprint",
+      "ogDescription": "View and modify items in your cart"
+    },
+    "story": {
+      "title": "Our Story - EatSprint",
+      "description": "Demo page for the EatSprint project",
+      "ogTitle": "Our Story - EatSprint",
+      "ogDescription": "Demo page for the EatSprint project"
+    },
+    "account": {
+      "title": "My Account - EatSprint",
+      "description": "Manage your account, view your personal information and access your orders",
+      "ogTitle": "My Account - EatSprint",
+      "ogDescription": "Manage your account and view your personal information"
+    },
+    "login": {
+      "title": "Login - EatSprint",
+      "description": "Log in to your EatSprint account",
+      "ogTitle": "Login - EatSprint",
+      "ogDescription": "Log in to your EatSprint account"
+    },
+    "register": {
+      "title": "Sign Up - EatSprint",
+      "description": "Create your EatSprint account",
+      "ogTitle": "Sign Up - EatSprint",
+      "ogDescription": "Create your EatSprint account"
+    },
+    "orders": {
+      "title": "My Orders - EatSprint",
+      "description": "View your order history",
+      "ogTitle": "My Orders - EatSprint",
+      "ogDescription": "View your order history"
+    }
+  },
+  "restaurants": {
+    "search": {
+      "placeholder": "Search for a restaurant by name..."
+    },
+    "categories": {
+      "new": "New",
+      "trending": "Trending",
+      "budget": "Budget-friendly",
+      "gourmet": "Gourmet"
+    },
+    "navigation": {
+      "previous": "Previous",
+      "next": "Next"
+    },
+    "empty": {
+      "noResults": "No restaurant found",
+      "noCategory": "No restaurant in this category"
+    },
+    "error": {
+      "title": "Loading error",
+      "description": "Unable to load restaurants for this category.",
+      "retry": "Retry"
+    }
+  },
+  "plats": {
+    "breadcrumb": {
+      "separator": ">",
+      "loading": "Loading..."
+    },
+    "empty": {
+      "noDishes": "No dishes available for this restaurant"
+    },
+    "error": {
+      "title": "Error loading dishes",
+      "retry": "Retry"
+    },
+    "units": {
+      "minutes": " min",
+      "calories": " cal"
+    },
+    "detail": {
+      "notFound": "Dish not found",
+      "loadingError": "Error loading dish",
+      "retry": "Retry",
+      "badges": {
+        "vegetarian": "Vegetarian",
+        "vegan": "Vegan",
+        "spicy": "Spicy",
+        "unavailable": "Unavailable"
+      },
+      "allergens": "Allergens",
+      "quantity": {
+        "decrease": "Decrease quantity",
+        "increase": "Increase quantity"
+      },
+      "addToCart": "Add to cart",
+      "unavailable": "Unavailable"
+    }
+  },
+  "seo": {
+    "restaurant": {
+      "titleSuffix": "Menu & Dishes | EatSprint",
+      "description": "Discover the full menu of {name} in {city}. Rating: {rating}/5. Order online for fast delivery.",
+      "ogDescription": "Discover the menu of {name} in {city}. Rating: {rating}/5"
+    },
+    "plat": {
+      "description": "{description} - €{price}. Preparation time: {time} min. {calories} cal. Order from {restaurant}."
+    }
+  },
+  "ui": {
+    "button": {
+      "default": "Click here"
+    }
+  },
+  "cart": {
+    "title": "My Cart",
+    "widget": {
+      "title": "My cart"
+    },
+    "empty": {
+      "title": "Your cart is empty",
+      "description": "Discover our restaurants and add dishes to your cart!",
+      "cta": "Discover restaurants"
+    },
+    "item": {
+      "perUnit": "€ / unit",
+      "decreaseQty": "Decrease quantity",
+      "increaseQty": "Increase quantity",
+      "remove": "Remove from cart"
+    },
+    "summary": {
+      "total": "Total",
+      "clear": "Clear cart",
+      "order": "Order",
+      "ordering": "Ordering..."
+    },
+    "messages": {
+      "removed": "{name} removed from cart",
+      "confirmClear": "Are you sure you want to clear your cart?",
+      "cleared": "Cart cleared",
+      "orderSuccess": "Order placed successfully!",
+      "orderError": "Error placing order"
+    }
+  },
+  "story": {
+    "demo": {
+      "title": "Demo page",
+      "description": "This page was created solely to illustrate site navigation and avoid 404 errors. It does not contain real content about EatSprint's history, as this is an academic demonstration project."
+    },
+    "project": {
+      "title": "EatSprint Project",
+      "description": "EatSprint is a food delivery application developed as part of an educational project. The main objective is to demonstrate the following technical skills:",
+      "features": {
+        "architecture": "Nuxt 4 architecture with optimized SSR and CSR",
+        "stateManagement": "State management with Pinia and authentication",
+        "backoffice": "Admin and restaurant owner back-office",
+        "design": "Modern design with Tailwind CSS v4"
+      }
+    }
+  },
+  "account": {
+    "myInfo": {
+      "title": "My information",
+      "fields": {
+        "name": "Name",
+        "email": "Email",
+        "role": "Role",
+        "address": "Address",
+        "city": "City"
+      }
+    },
+    "roles": {
+      "admin": "Administrator",
+      "restaurant_owner": "Restaurant Owner",
+      "customer": "Customer",
+      "unknown": "Unknown"
+    },
+    "quickAccess": {
+      "title": "Quick access",
+      "admin": "Administration",
+      "restaurants": "My restaurants",
+      "orders": "My orders"
+    },
+    "logout": "Log out"
+  },
+  "auth": {
+    "login": {
+      "title": "Login",
+      "subtitle": "Log in to your account",
+      "email": "Email",
+      "emailPlaceholder": "your{'@'}email.com",
+      "password": "Password",
+      "passwordPlaceholder": "••••••••",
+      "submit": "Log in",
+      "submitting": "Logging in...",
+      "noAccount": "Don't have an account yet?",
+      "signupLink": "Sign up",
+      "error": "Error logging in"
+    },
+    "register": {
+      "title": "Sign Up",
+      "subtitle": "Create your EatSprint account",
+      "name": "Full name",
+      "namePlaceholder": "John Doe",
+      "email": "Email",
+      "emailPlaceholder": "your{'@'}email.com",
+      "password": "Password",
+      "passwordPlaceholder": "••••••••",
+      "address": "Address",
+      "addressPlaceholder": "123 Main Street",
+      "postalCode": "Postal code",
+      "postalCodePlaceholder": "75001",
+      "city": "City",
+      "cityPlaceholder": "Paris",
+      "submit": "Sign up",
+      "submitting": "Signing up...",
+      "hasAccount": "Already have an account?",
+      "loginLink": "Log in",
+      "error": "Error signing up"
+    }
+  },
+  "orders": {
+    "title": "My Orders",
+    "orderNumber": "Order #",
+    "unknownDish": "Unknown dish",
+    "status": {
+      "en_attente": "Pending",
+      "confirmee": "Confirmed",
+      "en_preparation": "In preparation",
+      "en_livraison": "Out for delivery",
+      "livree": "Delivered",
+      "annulee": "Cancelled"
+    },
+    "empty": {
+      "title": "No orders",
+      "description": "You haven't placed any orders yet. Discover our restaurants and order your favorite dishes!",
+      "cta": "Discover restaurants"
+    }
+  }
+}

@@ -4,7 +4,7 @@
       <h1
         class="text-primary mb-8 text-center text-5xl font-extrabold uppercase md:text-6xl"
       >
-        Mes Commandes
+        {{ $t('orders.title') }}
       </h1>
 
       <OrderList
@@ -16,6 +16,7 @@
 </template>
 
 <script setup lang="ts">
+const { t, locale } = useI18n()
 const orderStore = useOrderStore()
 
 definePageMeta({
@@ -35,10 +36,10 @@ onMounted(async () => {
 })
 
 useSeoMeta({
-  title: 'Mes Commandes - EatSprint',
-  description: 'Consultez l\'historique de vos commandes',
-  ogTitle: 'Mes Commandes - EatSprint',
-  ogDescription: 'Consultez l\'historique de vos commandes',
+  title: () => t('pages.orders.title'),
+  description: () => t('pages.orders.description'),
+  ogTitle: () => t('pages.orders.ogTitle'),
+  ogDescription: () => t('pages.orders.ogDescription'),
   ogImage: '/assets/logo_new.png',
   ogType: 'website',
   twitterCard: 'summary_large_image',
@@ -46,7 +47,7 @@ useSeoMeta({
 
 useHead({
   htmlAttrs: {
-    lang: 'fr',
+    lang: () => locale.value,
   },
 })
 </script>

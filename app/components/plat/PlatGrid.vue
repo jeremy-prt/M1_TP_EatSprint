@@ -9,7 +9,7 @@
   <div v-else>
     <div v-if="plats.length === 0" class="py-12 text-center">
       <p class="text-xl text-gray-500">
-        Aucun plat disponible pour ce restaurant
+        {{ $t('plats.empty.noDishes') }}
       </p>
     </div>
 
@@ -71,7 +71,7 @@
                     class="text-blue-400"
                   />
                   <span class="text-sm font-semibold text-white">
-                    {{ plat.temps_preparation_min }} min
+                    {{ plat.temps_preparation_min }}{{ $t('plats.units.minutes') }}
                   </span>
                 </div>
                 <div
@@ -79,7 +79,7 @@
                 >
                   <Icon name="mdi:fire" size="16" class="text-orange-400" />
                   <span class="text-sm font-semibold text-white">
-                    {{ plat.calories }} cal
+                    {{ plat.calories }}{{ $t('plats.units.calories') }}
                   </span>
                 </div>
               </div>

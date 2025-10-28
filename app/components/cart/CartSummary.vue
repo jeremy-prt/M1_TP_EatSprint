@@ -6,7 +6,7 @@
       <div
         class="flex items-center justify-between border-b-2 border-black pb-4"
       >
-        <span class="text-2xl font-bold text-gray-800">Total</span>
+        <span class="text-2xl font-bold text-gray-800">{{ $t('cart.summary.total') }}</span>
         <span class="text-4xl font-extrabold text-gray-800">
           {{ totalPrice.toFixed(2) }}€
         </span>
@@ -18,7 +18,7 @@
           class="button-vider flex flex-1 -skew-x-6 cursor-pointer items-center justify-center gap-2 border-none bg-gray-500 px-6 py-3 text-xl font-bold text-white shadow-[4px_4px_0_black] transition-all duration-150"
         >
           <Icon name="mdi:delete-sweep" size="24" class="skew-x-6" />
-          <span class="skew-x-6">Vider le panier</span>
+          <span class="skew-x-6">{{ $t('cart.summary.clear') }}</span>
         </button>
 
         <button
@@ -34,7 +34,7 @@
           />
           <Icon v-else name="mdi:loading" size="24" class="animate-spin" />
           <span class="skew-x-6">{{
-            isOrdering ? "Commande en cours..." : "Commander"
+            isOrdering ? $t('cart.summary.ordering') : $t('cart.summary.order')
           }}</span>
         </button>
       </div>

@@ -38,7 +38,7 @@ const getToastClass = (type: string) => {
     case "error":
       return "bg-red-500 text-white";
     case "warning":
-      return "bg-orange-500 text-white";
+      return "bg-accent text-white";
     case "info":
       return "bg-blue-500 text-white";
     default:

@@ -14,7 +14,7 @@
       <PlatDetailCard v-else-if="plat" :plat="plat" />
 
       <div v-else class="py-12 text-center">
-        <p class="text-xl text-gray-500">Plat introuvable</p>
+        <p class="text-xl text-gray-500">{{ $t('plats.detail.notFound') }}</p>
       </div>
     </div>
   </div>

@@ -16,6 +16,7 @@ export const useSeoPlat = (
     | Ref<Restaurant | null | undefined>,
 ) => {
   const route = useRoute();
+  const { locale, t } = useI18n();
   const baseUrl = "https://m1-tp-eat-sprint.vercel.app";
 
   const title = computed(() => {
@@ -25,7 +26,13 @@ export const useSeoPlat = (
 
   const description = computed(() => {
     if (!plat.value || !restaurant.value) return "";
-    return `${plat.value.description} - ${plat.value.prix}€. Temps de préparation : ${plat.value.temps_preparation_min} min. ${plat.value.calories} cal. Commandez chez ${restaurant.value.nom}.`;
+    return t('seo.plat.description', {
+      description: plat.value.description,
+      price: plat.value.prix,
+      time: plat.value.temps_preparation_min,
+      calories: plat.value.calories,
+      restaurant: restaurant.value.nom
+    });
   });
 
   const ogImage = computed(() => plat.value?.image || "");
@@ -35,19 +42,19 @@ export const useSeoPlat = (
   });
 
   useSeoMeta({
-    title,
-    description,
-    ogTitle,
+    title: () => title.value,
+    description: () => description.value,
+    ogTitle: () => ogTitle.value,
     ogDescription: () => plat.value?.description || "",
-    ogImage,
+    ogImage: () => ogImage.value,
     ogImageAlt: () => plat.value?.nom || "",
     ogUrl: () => `${baseUrl}${route.fullPath}`,
     ogType: "website",
     ogSiteName: "EatSprint",
     twitterCard: "summary_large_image",
-    twitterTitle: ogTitle,
+    twitterTitle: () => ogTitle.value,
     twitterDescription: () => plat.value?.description || "",
-    twitterImage: ogImage,
+    twitterImage: () => ogImage.value,
   });
 
   // Schema.org Product pour Google Rich Results via JSON-LD
@@ -84,7 +91,7 @@ export const useSeoPlat = (
 
   useHead({
     htmlAttrs: {
-      lang: "fr",
+      lang: () => locale.value,
     },
     script: [
       {

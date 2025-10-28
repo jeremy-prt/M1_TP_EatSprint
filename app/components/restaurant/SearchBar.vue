@@ -14,7 +14,7 @@
             <input
               v-model="searchQuery"
               type="text"
-              placeholder="Rechercher un restaurant par nom..."
+              :placeholder="$t('restaurants.search.placeholder')"
               class="text-secondary placeholder:text-secondary/50 w-full bg-transparent text-lg font-medium outline-none"
             />
           </div>
