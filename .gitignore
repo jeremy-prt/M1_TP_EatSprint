@@ -30,5 +30,8 @@ CLAUDE.md
 test-results/
 playwright-report/
 
+# Bundle analysis
+stats.html
+
 AUTHENTICATION.md
 PLAN_TEST_AUTH.md
