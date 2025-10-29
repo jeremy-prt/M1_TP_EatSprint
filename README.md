@@ -11,6 +11,18 @@ Application de livraison de repas en ligne développée avec Nuxt 4.
 
 Projet réalisé dans le cadre d'un TP MBA1. Application frontend de commande et livraison de repas permettant de parcourir des restaurants et leurs plats.
 
+## Comptes de test
+
+Pour tester les différents rôles de l'application :
+
+**Administrateur**
+- Email : `admin@gmail.com`
+- Mot de passe : `Password123`
+
+**Restaurateur**
+- Email : `restaurant@gmail.com`
+- Mot de passe : `Password123`
+
 ## Technologies
 
 - **Nuxt 4**
