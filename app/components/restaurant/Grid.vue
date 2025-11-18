@@ -19,8 +19,9 @@
         <NuxtImg
           :src="restaurant.image"
           :alt="restaurant.nom"
-          width="300"
-          height="200"
+          width="400"
+          height="300"
+          sizes="xs:100vw md:50vw lg:33vw xl:25vw"
           class="restaurant-image absolute inset-0 h-full w-full object-cover transition-transform duration-300"
           loading="lazy"
         />

@@ -54,10 +54,12 @@
           <NuxtImg
             :src="restaurant.image"
             :alt="restaurant.nom"
-            width="300"
-            height="200"
+            width="400"
+            height="300"
+            :loading="priority ? 'eager' : 'lazy'"
+            :fetchpriority="priority ? 'high' : 'auto'"
+            sizes="sm:50vw md:33vw lg:25vw"
             class="restaurant-image absolute inset-0 h-full w-full object-cover transition-transform duration-300"
-            loading="lazy"
           />
 
           <div class="absolute inset-0 bg-black/20"></div>
@@ -91,9 +93,12 @@
 <script setup lang="ts">
 interface Props {
   categoryKey: string
+  priority?: boolean
 }
 
-const props = defineProps<Props>()
+const props = withDefaults(defineProps<Props>(), {
+  priority: false
+})
 const { t } = useI18n()
 
 // Mapping des clés de catégories vers les noms français de la DB

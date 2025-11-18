@@ -10,10 +10,12 @@
           <NuxtImg
             :src="plat.image"
             :alt="plat.nom"
-            width="600"
-            height="800"
+            width="800"
+            height="600"
+            loading="eager"
+            fetchpriority="high"
+            sizes="xs:100vw lg:50vw"
             class="absolute inset-0 h-full w-full object-cover"
-            loading="lazy"
           />
           <div class="absolute inset-0 bg-black/20"></div>
 

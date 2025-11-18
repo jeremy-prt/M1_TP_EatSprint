@@ -131,6 +131,29 @@ export const useAdminUsers = () => {
     }
   }
 
+  /**
+   * Supprime un utilisateur
+   * @param userId - ID de l'utilisateur à supprimer
+   * @returns ApiResponse indiquant le succès ou l'échec
+   */
+  const deleteUser = async (userId: number): Promise<ApiResponse<void>> => {
+    try {
+      await $fetch(`/api/admin/users/${userId}`, {
+        method: 'DELETE',
+      })
+
+      // Retirer l'utilisateur de la liste locale
+      users.value = users.value.filter((u) => u.id !== userId)
+
+      return { success: true }
+    } catch (err: any) {
+      return {
+        success: false,
+        error: err.data?.statusMessage || 'Erreur lors de la suppression',
+      }
+    }
+  }
+
   return {
     users,
     pending: showSkeleton,
@@ -141,5 +164,6 @@ export const useAdminUsers = () => {
     refresh,
     createUser,
     updateUser,
+    deleteUser,
   }
 }

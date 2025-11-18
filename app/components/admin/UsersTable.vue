@@ -77,12 +77,22 @@
               </span>
             </td>
             <td class="px-6 py-4 text-right">
-              <button
-                @click="$emit('edit', user)"
-                class="bg-secondary inline-flex cursor-pointer items-center justify-center rounded-full p-2 text-white shadow-[2px_2px_0_black] transition-all active:translate-x-[1px] active:translate-y-[1px] active:shadow-[1px_1px_0_black]"
-              >
-                <Icon name="mdi:pencil" size="18" />
-              </button>
+              <div class="flex justify-end gap-2">
+                <button
+                  @click="$emit('edit', user)"
+                  class="bg-secondary inline-flex cursor-pointer items-center justify-center rounded-full p-2 text-white shadow-[2px_2px_0_black] transition-all active:translate-x-[1px] active:translate-y-[1px] active:shadow-[1px_1px_0_black]"
+                  :aria-label="`Éditer ${user.name}`"
+                >
+                  <Icon name="mdi:pencil" size="18" />
+                </button>
+                <button
+                  @click="$emit('delete', user)"
+                  class="bg-accent inline-flex cursor-pointer items-center justify-center rounded-full p-2 text-white shadow-[2px_2px_0_black] transition-all active:translate-x-[1px] active:translate-y-[1px] active:shadow-[1px_1px_0_black]"
+                  :aria-label="`Supprimer ${user.name}`"
+                >
+                  <Icon name="mdi:delete" size="18" />
+                </button>
+              </div>
             </td>
           </tr>
         </tbody>
@@ -117,6 +127,7 @@ withDefaults(defineProps<Props>(), {
 defineEmits<{
   add: [];
   edit: [user: User];
+  delete: [user: User];
   retry: [];
 }>();
 </script>

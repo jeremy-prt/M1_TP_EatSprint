@@ -6,7 +6,7 @@
 
     <div v-else class="w-full pl-6">
       <div class="space-y-16">
-        <RestaurantCategoryRow category-key="new" />
+        <RestaurantCategoryRow category-key="new" :priority="true" />
         <RestaurantCategoryRow category-key="trending" />
         <RestaurantCategoryRow category-key="budget" />
         <RestaurantCategoryRow category-key="gourmet" />

@@ -15,6 +15,7 @@
             :get-role-label="getRoleLabel"
             @add="openAddModal"
             @edit="openEditModal"
+            @delete="handleDeleteUser"
             @retry="refresh"
           />
         </div>
@@ -51,6 +52,7 @@ const {
   refresh,
   createUser,
   updateUser,
+  deleteUser,
 } = useAdminUsers();
 
 const {
@@ -135,6 +137,22 @@ const handleSubmitUser = async (userData: any) => {
     );
   } else {
     toast.error(result.error || "Une erreur est survenue");
+  }
+};
+
+const handleDeleteUser = async (user: User) => {
+  const confirmed = confirm(
+    `Êtes-vous sûr de vouloir supprimer le restaurateur "${user.name}" ?\n\nCette action est irréversible.`
+  );
+
+  if (!confirmed) return;
+
+  const result = await deleteUser(user.id);
+
+  if (result.success) {
+    toast.success(`Restaurateur "${user.name}" supprimé avec succès`);
+  } else {
+    toast.error(result.error || "Erreur lors de la suppression");
   }
 };
 

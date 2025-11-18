@@ -34,8 +34,9 @@
               <NuxtImg
                 :src="plat.image"
                 :alt="plat.nom"
-                width="300"
-                height="200"
+                width="400"
+                height="300"
+                sizes="xs:100vw md:33vw lg:25vw"
                 class="plat-image absolute inset-0 h-full w-full object-cover transition-transform duration-300"
                 loading="lazy"
               />
