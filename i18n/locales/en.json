@@ -167,6 +167,20 @@
         "backoffice": "Admin and restaurant owner back-office",
         "design": "Modern design with Tailwind CSS v4"
       }
+    },
+    "testAccounts": {
+      "title": "Test accounts",
+      "description": "To test the different roles of the application:",
+      "admin": {
+        "title": "Administrator",
+        "email": "Email: admin{'@'}gmail.com",
+        "password": "Password: Password123"
+      },
+      "restaurantOwner": {
+        "title": "Restaurant Owner",
+        "email": "Email: restaurant{'@'}gmail.com",
+        "password": "Password: Password123"
+      }
     }
   },
   "account": {
