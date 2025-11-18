@@ -143,7 +143,7 @@ test.describe('Parcours administrateur', () => {
     await expect(page.locator('text=/Éditer un restaurateur/i')).toBeHidden({ timeout: 10000 })
 
     // 12. Vérifier que le nom modifié apparaît dans la table
-    await expect(page.locator(`text=${newName}`)).toBeVisible({ timeout: 5000 })
+    await expect(page.locator('tbody tr').first().locator('p.font-semibold').filter({ hasText: newName })).toBeVisible({ timeout: 5000 })
 
     // 13. Fermer le toast de succès avant de continuer
     const toastCloseButton = page.locator('button[aria-label*="close"], button[aria-label*="fermer"], [role="alert"] button').first()
@@ -172,6 +172,6 @@ test.describe('Parcours administrateur', () => {
 
     // 18. Vérifier que le modal se ferme et que le nom est restauré
     await expect(page.locator('text=/Éditer un restaurateur/i')).toBeHidden({ timeout: 10000 })
-    await expect(page.locator(`text=${originalName}`)).toBeVisible({ timeout: 5000 })
+    await expect(page.locator('tbody tr').first().locator('p.font-semibold').filter({ hasText: originalName })).toBeVisible({ timeout: 5000 })
   })
 })

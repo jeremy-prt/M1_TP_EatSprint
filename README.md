@@ -16,10 +16,12 @@ Projet réalisé dans le cadre d'un TP MBA1. Application frontend de commande et
 Pour tester les différents rôles de l'application :
 
 **Administrateur**
+
 - Email : `admin@gmail.com`
 - Mot de passe : `Password123`
 
 **Restaurateur**
+
 - Email : `restaurant@gmail.com`
 - Mot de passe : `Password123`
 
@@ -58,3 +60,14 @@ npm run test:watch   # Tests unitaires en mode watch
 npm run test:e2e     # Lancer les tests e2e avec Playwright
 npm run test:e2e:ui  # Tests e2e en mode UI
 ```
+
+## Tests
+
+### Prérequis pour les tests E2E
+
+**Important** : Les tests E2E nécessitent que certains comptes utilisateurs existent dans la base de données :
+
+- **Ne pas supprimer le compte "Ethan" (ethan.t@gmail.com)** : utilisé par le test d'édition de restaurateur
+- **Ne pas supprimer le compte client "customer@test.com"** : utilisé par les tests de parcours d'achat
+
+Les tests créent et nettoient automatiquement les données temporaires mais dépendent de ces comptes de base.
