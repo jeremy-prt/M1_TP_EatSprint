@@ -7,7 +7,7 @@
         <div class="flex-1">
           <AdminUsersTableSkeleton v-if="pendingUsers" />
 
-          <AdminUsersTable
+          <LazyAdminUsersTable
             v-else
             :users="restaurantOwners"
             :loading="pendingUsers"

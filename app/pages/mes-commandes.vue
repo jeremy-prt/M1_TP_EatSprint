@@ -7,7 +7,7 @@
         {{ $t('orders.title') }}
       </h1>
 
-      <OrderList
+      <LazyOrderList
         :orders="orderStore.allOrders"
         :loading="showSkeleton"
       />

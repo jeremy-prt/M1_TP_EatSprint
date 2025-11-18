@@ -2,16 +2,18 @@
   <div class="relative min-h-[calc(100vh-var(--spacing-header))] py-8">
     <RestaurantSearchBar v-model="searchQuery" />
 
-    <RestaurantGrid v-if="searchQuery" :search-query="searchQuery" />
+    <Transition name="fade" mode="out-in">
+      <LazyRestaurantGrid v-if="searchQuery" :search-query="searchQuery" />
 
-    <div v-else class="w-full pl-6">
-      <div class="space-y-16">
-        <RestaurantCategoryRow category-key="new" :priority="true" />
-        <RestaurantCategoryRow category-key="trending" />
-        <RestaurantCategoryRow category-key="budget" />
-        <RestaurantCategoryRow category-key="gourmet" />
+      <div v-else class="w-full pl-6">
+        <div class="space-y-16">
+          <RestaurantCategoryRow category-key="new" :priority="true" />
+          <LazyRestaurantCategoryRow category-key="trending" />
+          <LazyRestaurantCategoryRow category-key="budget" />
+          <LazyRestaurantCategoryRow category-key="gourmet" />
+        </div>
       </div>
-    </div>
+    </Transition>
   </div>
 </template>
 
@@ -35,3 +37,15 @@ useHead({
   },
 });
 </script>
+
+<style scoped>
+.fade-enter-active,
+.fade-leave-active {
+  transition: opacity 0.3s ease;
+}
+
+.fade-enter-from,
+.fade-leave-to {
+  opacity: 0;
+}
+</style>
