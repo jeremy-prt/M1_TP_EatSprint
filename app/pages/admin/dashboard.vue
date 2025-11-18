@@ -9,6 +9,7 @@
 
           <LazyAdminUsersTable
             v-else
+            hydrate-on-visible
             :users="restaurantOwners"
             :loading="pendingUsers"
             :error="errorUsers"

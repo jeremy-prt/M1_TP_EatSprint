@@ -8,9 +8,9 @@
       <div v-else class="w-full pl-6">
         <div class="space-y-16">
           <RestaurantCategoryRow category-key="new" :priority="true" />
-          <LazyRestaurantCategoryRow category-key="trending" />
-          <LazyRestaurantCategoryRow category-key="budget" />
-          <LazyRestaurantCategoryRow category-key="gourmet" />
+          <RestaurantCategoryRow category-key="trending" />
+          <RestaurantCategoryRow category-key="budget" />
+          <RestaurantCategoryRow category-key="gourmet" />
         </div>
       </div>
     </Transition>

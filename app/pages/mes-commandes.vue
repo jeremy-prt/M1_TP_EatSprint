@@ -8,6 +8,7 @@
       </h1>
 
       <LazyOrderList
+        hydrate-on-visible
         :orders="orderStore.allOrders"
         :loading="showSkeleton"
       />

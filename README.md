@@ -27,11 +27,36 @@ Pour tester les différents rôles de l'application :
 
 ## Technologies
 
-- **Nuxt 4**
-- **Tailwind CSS v4**
-- **TypeScript**
-- **Nuxt Icon** (@nuxt/icon)
-- **Nuxt Image** (@nuxt/image)
+- **Nuxt 4** - SSR/CSR hybrid avec routing automatique
+- **Tailwind CSS v4** - Design system avec thème personnalisé
+- **TypeScript** - Typage strict avec interfaces complètes
+- **Pinia** - State management (auth, cart, orders)
+- **Nuxt Icon** - 200k+ icônes via Iconify
+- **Nuxt Image** - Optimisation images responsive (WebP/AVIF)
+- **Vite PWA** - Progressive Web App installable
+- **Nuxt i18n** - Internationalisation FR/EN
+- **Vitest** - Tests unitaires
+- **Playwright** - Tests E2E cross-browser
+
+## Fonctionnalités clés
+
+- **SSR** pour pages publiques (SEO) + **CSR** pour pages auth
+- **3 rôles** : Client, Restaurateur, Admin avec middlewares dédiés
+- **i18n** : Switch FR/EN dynamique sur toute l'interface
+- **PWA** : Installation + mode offline basique
+- **Lazy loading** : Code-splitting + hydrate-on-visible sur pages CSR (admin/auth), désactivé sur pages SSR pour éviter hydration mismatch
+- **Animations** : Transitions Vue + hover effects
+- **SEO** : Meta tags dynamiques + Schema.org (Product)
+- **Tests** : 3 stores + 2 parcours E2E (client, admin)
+- **CI/CD** : GitHub Actions + déploiement auto Vercel
+
+## Performance & Qualité
+
+![Lighthouse Score](./public/lighthouse.png)
+
+- **Accessibility** : 95/100
+- **SEO** : 100/100
+- **Best Practices** : TypeScript strict, JSDoc complète, architecture modulaire
 
 ## Installation
 

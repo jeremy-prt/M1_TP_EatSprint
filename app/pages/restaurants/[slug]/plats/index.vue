@@ -3,7 +3,7 @@
     <div class="w-full pl-6">
       <PlatBreadcrumb :restaurant-name="restaurant?.nom" />
 
-      <LazyPlatGrid
+      <PlatGrid
         :plats="plats"
         :pending="pending"
         :error="!!error"

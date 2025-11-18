@@ -69,6 +69,7 @@ export default defineNuxtConfig({
     },
     workbox: {
       navigateFallback: "/",
+      cleanupOutdatedCaches: true,
       globPatterns: ["**/*.{js,css,html,svg,ico,webp,avif}"],
       globIgnores: ["**/screenshot-*.png", "**/screenshot-*.jpg"],
       runtimeCaching: [
@@ -89,7 +90,7 @@ export default defineNuxtConfig({
       installPrompt: true,
     },
     devOptions: {
-      enabled: true,
+      enabled: false,
       type: "module",
     },
   },
@@ -105,6 +106,11 @@ export default defineNuxtConfig({
           })
         : undefined,
     ].filter(Boolean),
+  },
+  nitro: {
+    prerender: {
+      routes: ["/"],
+    },
   },
   runtimeConfig: {
     supabaseUrl: process.env.NUXT_SUPABASE_URL,
