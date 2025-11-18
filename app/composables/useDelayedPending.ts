@@ -17,6 +17,13 @@ export const useDelayedPending = (
   const showSkeleton = ref(false)
   let timeout: ReturnType<typeof setTimeout> | null = null
 
+  // Côté serveur, on affiche directement le skeleton si pending=true
+  // pour éviter les problèmes d'hydratation avec setTimeout
+  if (import.meta.server) {
+    return computed(() => pending.value)
+  }
+
+  // Côté client uniquement, on utilise le délai
   watch(
     pending,
     (newVal) => {

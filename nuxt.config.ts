@@ -69,6 +69,7 @@ export default defineNuxtConfig({
     },
     workbox: {
       navigateFallback: "/",
+      navigateFallbackDenylist: [/^\/admin/, /^\/dashboard/, /^\/mon-espace-perso/, /^\/panier/, /^\/commandes/, /^\/auth/],
       cleanupOutdatedCaches: true,
       globPatterns: ["**/*.{js,css,html,svg,ico,webp,avif}"],
       globIgnores: ["**/screenshot-*.png", "**/screenshot-*.jpg"],
