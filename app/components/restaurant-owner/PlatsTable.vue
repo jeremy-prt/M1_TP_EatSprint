@@ -59,35 +59,35 @@
               <div class="flex items-center gap-3">
                 <NuxtImg
                   :src="plat.image"
-                  :alt="plat.nom"
+                  :alt="plat.name"
                   width="50"
                   height="50"
                   class="h-12 w-12 rounded object-cover"
                 />
                 <div>
-                  <p class="font-semibold text-gray-900">{{ plat.nom }}</p>
+                  <p class="font-semibold text-gray-900">{{ plat.name }}</p>
                   <p class="text-sm text-gray-500">{{ plat.description.substring(0, 50) }}...</p>
                 </div>
               </div>
             </td>
             <td class="px-6 py-4">
-              <p class="font-semibold text-gray-900">{{ plat.prix }}€</p>
+              <p class="font-semibold text-gray-900">{{ plat.price }}€</p>
             </td>
             <td class="px-6 py-4">
               <span class="inline-block rounded bg-blue-100 px-3 py-1 text-xs font-semibold text-blue-800">
-                {{ plat.categorie }}
+                {{ plat.category }}
               </span>
             </td>
             <td class="px-6 py-4 text-center">
               <span
                 class="inline-block rounded px-3 py-1 text-xs font-semibold"
                 :class="
-                  plat.disponible
+                  plat.isAvailable
                     ? 'bg-green-100 text-green-800'
                     : 'bg-red-100 text-red-800'
                 "
               >
-                {{ plat.disponible ? 'Oui' : 'Non' }}
+                {{ plat.isAvailable ? 'Oui' : 'Non' }}
               </span>
             </td>
             <td class="px-6 py-4 text-right">

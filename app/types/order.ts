@@ -1,58 +1,32 @@
 import type { Plat } from './plat'
 
-export type OrderStatus = 'en_attente' | 'confirmee' | 'en_preparation' | 'en_livraison' | 'livree' | 'annulee'
+export type OrderStatus = 'PENDING' | 'CONFIRMED' | 'PREPARING' | 'DELIVERING' | 'DELIVERED' | 'CANCELLED'
 
-/**
- * Article d'une commande
- * Représente un plat dans une commande avec sa quantité et son prix au moment de l'achat
- */
 export interface OrderItem {
   id: number
-  order_id: number
-  plat_id: number
+  orderId: number
+  dishId: number
   quantity: number
-  prix_unitaire: number
-  plat?: Plat
+  unitPrice: number
+  dish?: Pick<Plat, 'id' | 'name' | 'image'>
 }
 
-/**
- * Commande complète
- * Contient toutes les informations d'une commande utilisateur
- */
 export interface Order {
   id: number
-  user_id: number
-  statut: OrderStatus
+  userId: number
+  status: OrderStatus
   total: number
-  created_at: string
-  items?: OrderItem[]
-}
-
-/**
- * Détail d'une commande avec ses articles
- * Utilisé pour l'affichage complet d'une commande
- */
-export interface OrderWithItems extends Order {
+  createdAt: string
+  updatedAt: string
   items: OrderItem[]
 }
 
-/**
- * Requête de création de commande
- * Envoyée depuis le panier pour créer une nouvelle commande
- */
-export interface CreateOrderRequest {
-  items: {
-    plat_id: number
-    quantity: number
-    prix_unitaire: number
-  }[]
-  total: number
-}
+export type OrderWithItems = Order
 
-/**
- * Réponse après création de commande
- */
-export interface CreateOrderResponse {
-  order: Order
-  message: string
+export interface CreateOrderRequest {
+  restaurantId: number
+  items: {
+    dishId: number
+    quantity: number
+  }[]
 }

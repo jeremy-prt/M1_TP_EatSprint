@@ -5,68 +5,52 @@ interface CreateUserData {
   name: string
   email: string
   password: string
-  adresse?: string | null
-  ville?: string | null
-  code_postal?: string | null
-  restaurantId?: number | null
+  address?: string | null
+  city?: string | null
+  zipCode?: string | null
 }
 
 interface UpdateUserData {
-  id: number
-  name: string
-  email: string
-  adresse?: string | null
-  ville?: string | null
-  code_postal?: string | null
-  restaurantId?: number | null
+  name?: string
+  email?: string
+  address?: string | null
+  city?: string | null
+  zipCode?: string | null
 }
 
-/**
- * Composable pour gérer les utilisateurs côté admin
- * Gère le CRUD des restaurateurs et la récupération de tous les users
- */
 export const useAdminUsers = () => {
+  const { apiFetch } = useApi()
   const users = ref<User[]>([])
   const pending = ref(true)
   const error = ref('')
 
-  // Utilise le délai pour éviter les flashs de skeleton sur connexion rapide
   const showSkeleton = useDelayedPending(pending, 200)
 
   const restaurantOwners = computed(() => {
-    return users.value.filter((u) => u.role === 'restaurant_owner')
+    return users.value.filter((u) => u.role === 'RESTAURANT_OWNER')
   })
 
-  /**
-   * Convertit le rôle technique en label français
-   * @param role - Rôle de l'utilisateur
-   * @returns Label traduit en français
-   */
   const getRoleLabel = (role: UserRole): string => {
     switch (role) {
-      case 'admin':
+      case 'ADMIN':
         return 'Administrateur'
-      case 'restaurant_owner':
+      case 'RESTAURANT_OWNER':
         return 'Restaurateur'
-      case 'customer':
+      case 'CUSTOMER':
         return 'Client'
       default:
         return role
     }
   }
 
-  /**
-   * Récupère tous les utilisateurs depuis l'API admin
-   */
   const fetchUsers = async (): Promise<void> => {
     pending.value = true
     error.value = ''
 
     try {
-      users.value = await $fetch<User[]>('/api/admin/users')
+      users.value = await apiFetch<User[]>('/admin/users')
     } catch (err: any) {
-      error.value =
-        err.data?.statusMessage || 'Erreur lors du chargement des utilisateurs'
+      error.value = err.data?.detail || 'Erreur lors du chargement des utilisateurs'
     } finally {
       pending.value = false
     }
@@ -74,23 +58,18 @@ export const useAdminUsers = () => {
 
   const refresh = fetchUsers
 
-  /**
-   * Crée un nouvel utilisateur restaurateur
-   * @param userData - Données du restaurateur à créer
-   * @returns ApiResponse avec l'utilisateur créé
-   */
   const createUser = async (userData: CreateUserData): Promise<ApiResponse<User>> => {
     try {
-      const response = await $fetch<{ user: User }>('/api/admin/users', {
+      const response = await apiFetch<{ user: User }>('/admin/users', {
         method: 'POST',
         body: {
           name: userData.name,
           email: userData.email,
           password: userData.password,
-          adresse: userData.adresse || null,
-          ville: userData.ville || null,
-          code_postal: userData.code_postal || null,
-          role: 'restaurant_owner',
+          address: userData.address || null,
+          city: userData.city || null,
+          zipCode: userData.zipCode || null,
+          role: 'RESTAURANT_OWNER',
         },
       })
 
@@ -98,58 +77,40 @@ export const useAdminUsers = () => {
     } catch (err: any) {
       return {
         success: false,
-        error: err.data?.statusMessage || 'Erreur lors de la création',
+        error: err.data?.detail || 'Erreur lors de la création',
       }
     }
   }
 
-  /**
-   * Met à jour les informations d'un utilisateur
-   * @param userId - ID de l'utilisateur à modifier
-   * @param userData - Données partielles à mettre à jour
-   * @returns ApiResponse avec l'utilisateur modifié
-   */
-  const updateUser = async (userId: number, userData: Partial<UpdateUserData>): Promise<ApiResponse<User>> => {
+  const updateUser = async (userId: number, userData: UpdateUserData): Promise<ApiResponse<User>> => {
     try {
-      const response = await $fetch<{ user: User }>(`/api/admin/users/${userId}`, {
+      const response = await apiFetch<{ user: User }>(`/admin/users/${userId}`, {
         method: 'PUT',
-        body: {
-          name: userData.name,
-          email: userData.email,
-          adresse: userData.adresse || null,
-          ville: userData.ville || null,
-          code_postal: userData.code_postal || null,
-        },
+        body: userData,
       })
 
       return { success: true, data: response.user }
     } catch (err: any) {
       return {
         success: false,
-        error: err.data?.statusMessage || 'Erreur lors de la modification',
+        error: err.data?.detail || 'Erreur lors de la modification',
       }
     }
   }
 
-  /**
-   * Supprime un utilisateur
-   * @param userId - ID de l'utilisateur à supprimer
-   * @returns ApiResponse indiquant le succès ou l'échec
-   */
   const deleteUser = async (userId: number): Promise<ApiResponse<void>> => {
     try {
-      await $fetch(`/api/admin/users/${userId}`, {
+      await apiFetch(`/admin/users/${userId}`, {
         method: 'DELETE',
       })
 
-      // Retirer l'utilisateur de la liste locale
       users.value = users.value.filter((u) => u.id !== userId)
 
       return { success: true }
     } catch (err: any) {
       return {
         success: false,
-        error: err.data?.statusMessage || 'Erreur lors de la suppression',
+        error: err.data?.detail || 'Erreur lors de la suppression',
       }
     }
   }

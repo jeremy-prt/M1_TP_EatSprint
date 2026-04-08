@@ -67,10 +67,10 @@
               <span
                 class="inline-block rounded px-3 py-1 text-xs font-semibold"
                 :class="{
-                  'bg-blue-100 text-blue-800': user.role === 'customer',
-                  'bg-red-100 text-red-800': user.role === 'admin',
+                  'bg-blue-100 text-blue-800': user.role === 'CUSTOMER',
+                  'bg-red-100 text-red-800': user.role === 'ADMIN',
                   'bg-green-100 text-green-800':
-                    user.role === 'restaurant_owner',
+                    user.role === 'RESTAURANT_OWNER',
                 }"
               >
                 {{ getRoleLabel(user.role) }}

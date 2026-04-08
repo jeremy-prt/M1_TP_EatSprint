@@ -1,47 +1,44 @@
 import type { Plat } from '~/types/plat'
 import type { ApiResponse } from '~/types/api'
 
-interface CreatePlatData {
-  nom: string
-  prix: number
+interface CreateDishData {
+  name: string
+  price: number
   description: string
-  categorie: string
+  category: string
   calories: number
-  temps_preparation_min: number
-  vegetarien: boolean
-  vegan: boolean
-  epice: boolean
-  allergenes: string | null
-  disponible: boolean
+  preparationTime: number
+  isVegetarian: boolean
+  isVegan: boolean
+  isSpicy: boolean
+  allergens: string | null
+  isAvailable: boolean
   image: string
 }
 
-interface UpdatePlatData extends Partial<CreatePlatData> {}
+interface UpdateDishData extends Partial<CreateDishData> {}
 
-/**
- * Composable pour gérer les plats des restaurants du restaurateur connecté
- * Gère le CRUD complet des plats avec filtrage par restaurant
- */
 export const useMyPlats = () => {
+  const { apiFetch } = useApi()
   const plats = ref<Plat[]>([])
   const pending = ref(true)
   const error = ref('')
 
-  // Utilise le délai pour éviter les flashs de skeleton sur connexion rapide
   const showSkeleton = useDelayedPending(pending, 200)
 
-  /**
-   * Récupère tous les plats des restaurants du restaurateur
-   */
-  const fetchPlats = async (): Promise<void> => {
+  const fetchPlats = async (restaurantId?: number): Promise<void> => {
     pending.value = true
     error.value = ''
 
     try {
-      plats.value = await $fetch<Plat[]>('/api/plats')
+      if (restaurantId) {
+        const response = await apiFetch<{ data: Plat[] }>(`/restaurants/${restaurantId}/dishes?limit=100`)
+        plats.value = response.data
+      } else {
+        plats.value = []
+      }
     } catch (err: any) {
-      error.value =
-        err.data?.statusMessage || 'Erreur lors du chargement des plats'
+      error.value = err.data?.detail || 'Erreur lors du chargement des plats'
     } finally {
       pending.value = false
     }
@@ -49,76 +46,54 @@ export const useMyPlats = () => {
 
   const refresh = fetchPlats
 
-  /**
-   * Filtre les plats par restaurant
-   * @param restaurantId - ID du restaurant
-   * @returns Liste des plats du restaurant
-   */
   const getPlatsByRestaurant = (restaurantId: number): Plat[] => {
-    return plats.value.filter((p) => p.restaurant_id === restaurantId)
+    return plats.value.filter((p) => p.restaurantId === restaurantId)
   }
 
-  /**
-   * Crée un nouveau plat pour un restaurant
-   * @param restaurantId - ID du restaurant parent
-   * @param platData - Données du plat à créer
-   * @returns ApiResponse avec le plat créé
-   */
   const createPlat = async (
     restaurantId: number,
-    platData: CreatePlatData
+    platData: CreateDishData
   ): Promise<ApiResponse<Plat>> => {
     try {
-      const response = await $fetch<{ plat: Plat }>(
-        `/api/restaurants/${restaurantId}/plats`,
+      const dish = await apiFetch<Plat>(
+        `/restaurants/${restaurantId}/dishes`,
         {
           method: 'POST',
           body: platData
         }
       )
 
-      return { success: true, data: response.plat }
+      return { success: true, data: dish }
     } catch (err: any) {
       return {
         success: false,
-        error: err.data?.statusMessage || 'Erreur lors de la création'
+        error: err.data?.detail || 'Erreur lors de la création'
       }
     }
   }
 
-  /**
-   * Met à jour un plat existant
-   * @param platId - ID du plat à modifier
-   * @param platData - Données partielles à mettre à jour
-   * @returns ApiResponse avec le plat modifié
-   */
   const updatePlat = async (
     platId: number,
-    platData: UpdatePlatData
+    platData: UpdateDishData
   ): Promise<ApiResponse<Plat>> => {
     try {
-      const response = await $fetch<{ plat: Plat }>(`/api/plats/${platId}`, {
+      const dish = await apiFetch<Plat>(`/dishes/${platId}`, {
         method: 'PUT',
         body: platData
       })
 
-      return { success: true, data: response.plat }
+      return { success: true, data: dish }
     } catch (err: any) {
       return {
         success: false,
-        error: err.data?.statusMessage || 'Erreur lors de la modification'
+        error: err.data?.detail || 'Erreur lors de la modification'
       }
     }
   }
 
-  /**
-   * Supprime un plat
-   * @param platId - ID du plat à supprimer
-   * @returns ApiResponse sans données
-   */
   const deletePlat = async (platId: number): Promise<ApiResponse<void>> => {
     try {
-      await $fetch(`/api/plats/${platId}`, {
+      await apiFetch(`/dishes/${platId}`, {
         method: 'DELETE'
       })
 
@@ -126,7 +101,7 @@ export const useMyPlats = () => {
     } catch (err: any) {
       return {
         success: false,
-        error: err.data?.statusMessage || 'Erreur lors de la suppression'
+        error: err.data?.detail || 'Erreur lors de la suppression'
       }
     }
   }

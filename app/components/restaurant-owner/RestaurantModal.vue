@@ -2,7 +2,7 @@
   <AdminModal v-model="isOpen" title="Éditer mon restaurant">
     <form @submit.prevent="handleSubmit" class="space-y-4">
       <UiInput
-        v-model="formData.nom"
+        v-model="formData.name"
         label="Nom du restaurant"
         type="text"
         placeholder="Le Gourmet Parisien"
@@ -10,7 +10,7 @@
       />
 
       <UiInput
-        v-model="formData.adresse"
+        v-model="formData.address"
         label="Adresse"
         type="text"
         placeholder="123 rue de la Paix"
@@ -19,7 +19,7 @@
 
       <div class="grid gap-4 md:grid-cols-2">
         <UiInput
-          v-model="formData.ville"
+          v-model="formData.city"
           label="Ville"
           type="text"
           placeholder="Paris"
@@ -27,7 +27,7 @@
         />
 
         <UiInput
-          v-model="formData.categorie"
+          v-model="formData.category"
           label="Catégorie"
           type="text"
           placeholder="Gastronomique"
@@ -78,7 +78,7 @@
             </span>
           </label>
           <input
-            v-model="formData.gamme_prix"
+            v-model="formData.priceRange"
             type="text"
             placeholder="€€"
             required
@@ -88,7 +88,7 @@
       </div>
 
       <UiInput
-        v-model.number="formData.temps_livraison_min"
+        v-model.number="formData.deliveryTimeMin"
         label="Temps de livraison (min)"
         type="number"
         placeholder="30"
@@ -136,14 +136,14 @@ interface Props {
 }
 
 interface FormData {
-  nom: string;
-  adresse: string;
-  ville: string;
-  categorie: string;
+  name: string;
+  address: string;
+  city: string;
+  category: string;
   image: string;
   cuisine: string;
-  gamme_prix: string;
-  temps_livraison_min: number;
+  priceRange: string;
+  deliveryTimeMin: number;
 }
 
 const props = withDefaults(defineProps<Props>(), {
@@ -164,14 +164,14 @@ const isOpen = computed({
 const loading = ref(false);
 
 const formData = ref<FormData>({
-  nom: "",
-  adresse: "",
-  ville: "",
-  categorie: "",
+  name: "",
+  address: "",
+  city: "",
+  category: "",
   image: "",
   cuisine: "",
-  gamme_prix: "",
-  temps_livraison_min: 0,
+  priceRange: "",
+  deliveryTimeMin: 0,
 });
 
 watch(
@@ -179,14 +179,14 @@ watch(
   (newVal) => {
     if (newVal && props.restaurant) {
       formData.value = {
-        nom: props.restaurant.nom,
-        adresse: props.restaurant.adresse,
-        ville: props.restaurant.ville,
-        categorie: props.restaurant.categorie,
+        name: props.restaurant.name,
+        address: props.restaurant.address,
+        city: props.restaurant.city,
+        category: props.restaurant.category,
         image: props.restaurant.image,
         cuisine: props.restaurant.cuisine,
-        gamme_prix: props.restaurant.gamme_prix,
-        temps_livraison_min: props.restaurant.temps_livraison_min,
+        priceRange: props.restaurant.priceRange,
+        deliveryTimeMin: props.restaurant.deliveryTimeMin,
       };
     }
   },

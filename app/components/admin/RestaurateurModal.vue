@@ -33,7 +33,7 @@
 
       <div class="space-y-4">
         <UiInput
-          v-model="formData.adresse"
+          v-model="formData.address"
           label="Adresse"
           type="text"
           placeholder="123 rue de la Paix"
@@ -42,7 +42,7 @@
 
         <div class="grid gap-4 md:grid-cols-2">
           <UiInput
-            v-model="formData.ville"
+            v-model="formData.city"
             label="Ville"
             type="text"
             placeholder="Paris"
@@ -50,7 +50,7 @@
           />
 
           <UiInput
-            v-model="formData.code_postal"
+            v-model="formData.zipCode"
             label="Code postal"
             type="text"
             placeholder="75000"
@@ -62,8 +62,8 @@
       <AdminAutocomplete
         v-model="selectedRestaurants"
         :items="availableRestaurants"
-        item-label="nom"
-        item-sub-label="ville"
+        item-label="name"
+        item-sub-label="city"
         item-value="id"
         label="Restaurants assignés"
         placeholder="Rechercher et ajouter un restaurant..."
@@ -110,9 +110,9 @@ interface FormData {
   name: string
   email: string
   password: string
-  adresse: string
-  ville: string
-  code_postal: string
+  address: string
+  city: string
+  zipCode: string
 }
 
 const props = withDefaults(defineProps<Props>(), {
@@ -139,14 +139,14 @@ const formData = ref<FormData>({
   name: '',
   email: '',
   password: '',
-  adresse: '',
-  ville: '',
-  code_postal: ''
+  address: '',
+  city: '',
+  zipCode: ''
 })
 
 const availableRestaurants = computed(() => {
   return props.restaurants.filter(
-    (r) => !r.owner_id || r.owner_id === props.user?.id
+    (r) => !r.ownerId || r.ownerId === props.user?.id
   )
 })
 
@@ -159,22 +159,22 @@ watch(
           name: props.user.name,
           email: props.user.email,
           password: '',
-          adresse: props.user.adresse || '',
-          ville: props.user.ville || '',
-          code_postal: props.user.code_postal || ''
+          address: props.user.address || '',
+          city: props.user.city || '',
+          zipCode: props.user.zipCode || ''
         }
 
         selectedRestaurants.value = props.restaurants.filter(
-          (r) => r.owner_id === props.user?.id
+          (r) => r.ownerId === props.user?.id
         )
       } else {
         formData.value = {
           name: '',
           email: '',
           password: '',
-          adresse: '',
-          ville: '',
-          code_postal: ''
+          address: '',
+          city: '',
+          zipCode: ''
         }
         selectedRestaurants.value = []
       }

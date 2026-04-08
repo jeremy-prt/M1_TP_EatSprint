@@ -21,24 +21,24 @@ export const useSeoPlat = (
 
   const title = computed(() => {
     if (!plat.value || !restaurant.value) return "EatSprint";
-    return `${plat.value.nom} - ${restaurant.value.nom} | EatSprint`;
+    return `${plat.value.name} - ${restaurant.value.name} | EatSprint`;
   });
 
   const description = computed(() => {
     if (!plat.value || !restaurant.value) return "";
     return t('seo.plat.description', {
       description: plat.value.description,
-      price: plat.value.prix,
-      time: plat.value.temps_preparation_min,
+      price: plat.value.price,
+      time: plat.value.preparationTime,
       calories: plat.value.calories,
-      restaurant: restaurant.value.nom
+      restaurant: restaurant.value.name
     });
   });
 
   const ogImage = computed(() => plat.value?.image || "");
   const ogTitle = computed(() => {
     if (!plat.value || !restaurant.value) return "";
-    return `${plat.value.nom} - ${restaurant.value.nom}`;
+    return `${plat.value.name} - ${restaurant.value.name}`;
   });
 
   useSeoMeta({
@@ -47,7 +47,7 @@ export const useSeoPlat = (
     ogTitle: () => ogTitle.value,
     ogDescription: () => plat.value?.description || "",
     ogImage: () => ogImage.value,
-    ogImageAlt: () => plat.value?.nom || "",
+    ogImageAlt: () => plat.value?.name || "",
     ogUrl: () => `${baseUrl}${route.fullPath}`,
     ogType: "website",
     ogSiteName: "EatSprint",
@@ -64,14 +64,14 @@ export const useSeoPlat = (
     return {
       "@context": "https://schema.org",
       "@type": "Product",
-      name: plat.value.nom,
+      name: plat.value.name,
       description: plat.value.description,
       image: plat.value.image,
       offers: {
         "@type": "Offer",
-        price: plat.value.prix,
+        price: plat.value.price,
         priceCurrency: "EUR",
-        availability: plat.value.disponible
+        availability: plat.value.isAvailable
           ? "https://schema.org/InStock"
           : "https://schema.org/OutOfStock",
       },
@@ -79,10 +79,10 @@ export const useSeoPlat = (
         "@type": "NutritionInformation",
         calories: `${plat.value.calories} calories`,
       },
-      aggregateRating: restaurant.value.note
+      aggregateRating: restaurant.value.rating
         ? {
             "@type": "AggregateRating",
-            ratingValue: restaurant.value.note,
+            ratingValue: restaurant.value.rating,
             bestRating: "5",
           }
         : undefined,

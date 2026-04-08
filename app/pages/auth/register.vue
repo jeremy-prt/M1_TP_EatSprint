@@ -39,7 +39,7 @@
           </div>
 
           <UiInput
-            v-model="formData.adresse"
+            v-model="formData.address"
             :label="$t('auth.register.address')"
             type="text"
             :placeholder="$t('auth.register.addressPlaceholder')"
@@ -48,14 +48,14 @@
 
           <div class="grid grid-cols-2 gap-4">
             <UiInput
-              v-model="formData.code_postal"
+              v-model="formData.zipCode"
               :label="$t('auth.register.postalCode')"
               type="text"
               :placeholder="$t('auth.register.postalCodePlaceholder')"
             />
 
             <UiInput
-              v-model="formData.ville"
+              v-model="formData.city"
               :label="$t('auth.register.city')"
               type="text"
               :placeholder="$t('auth.register.cityPlaceholder')"
@@ -119,9 +119,9 @@ const formData = ref({
   name: "",
   email: "",
   password: "",
-  adresse: "",
-  ville: "",
-  code_postal: "",
+  address: "",
+  city: "",
+  zipCode: "",
 });
 
 const loading = ref(false);

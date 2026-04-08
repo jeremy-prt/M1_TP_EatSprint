@@ -21,7 +21,7 @@
       <div class="mb-6">
         <NuxtImg
           :src="restaurant.image"
-          :alt="restaurant.nom"
+          :alt="restaurant.name"
           width="400"
           height="200"
           class="h-48 w-full -skew-x-3 object-cover shadow-[4px_4px_0_#fb923c]"
@@ -33,28 +33,28 @@
           <h3 class="mb-1 text-sm font-bold uppercase text-gray-900">
             Nom
           </h3>
-          <p class="text-lg text-gray-600">{{ restaurant.nom }}</p>
+          <p class="text-lg text-gray-600">{{ restaurant.name }}</p>
         </div>
 
         <div>
           <h3 class="mb-1 text-sm font-bold uppercase text-gray-900">
             Adresse
           </h3>
-          <p class="text-lg text-gray-600">{{ restaurant.adresse }}</p>
+          <p class="text-lg text-gray-600">{{ restaurant.address }}</p>
         </div>
 
         <div>
           <h3 class="mb-1 text-sm font-bold uppercase text-gray-900">
             Ville
           </h3>
-          <p class="text-lg text-gray-600">{{ restaurant.ville }}</p>
+          <p class="text-lg text-gray-600">{{ restaurant.city }}</p>
         </div>
 
         <div>
           <h3 class="mb-1 text-sm font-bold uppercase text-gray-900">
             Catégorie
           </h3>
-          <p class="text-lg text-gray-600">{{ restaurant.categorie }}</p>
+          <p class="text-lg text-gray-600">{{ restaurant.category }}</p>
         </div>
 
         <div>
@@ -69,7 +69,7 @@
             Temps de livraison
           </h3>
           <p class="text-lg text-gray-600">
-            {{ restaurant.temps_livraison_min }} min
+            {{ restaurant.deliveryTimeMin }} min
           </p>
         </div>
 
@@ -80,10 +80,10 @@
           <div class="flex items-center gap-1">
             <Icon name="mdi:star" size="20" class="text-yellow-400" />
             <p class="text-lg font-semibold text-gray-600">
-              {{ restaurant.note }}/5
+              {{ restaurant.rating }}/5
             </p>
             <span class="text-sm text-gray-500"
-              >({{ restaurant.nb_avis }} avis)</span
+              >({{ restaurant.reviewCount }} avis)</span
             >
           </div>
         </div>
@@ -121,7 +121,7 @@ defineEmits<{
 }>();
 
 const priceRangeLabel = computed(() => {
-  const count = props.restaurant.gamme_prix.length;
+  const count = props.restaurant.priceRange.length;
   switch (count) {
     case 1:
       return "Bon marché";
@@ -132,12 +132,12 @@ const priceRangeLabel = computed(() => {
     case 4:
       return "Très cher";
     default:
-      return props.restaurant.gamme_prix;
+      return props.restaurant.priceRange;
   }
 });
 
 const priceRangeClass = computed(() => {
-  const count = props.restaurant.gamme_prix.length;
+  const count = props.restaurant.priceRange.length;
   switch (count) {
     case 1:
       return "bg-green-100 text-green-800";
@@ -153,7 +153,7 @@ const priceRangeClass = computed(() => {
 });
 
 const priceRangeColor = computed(() => {
-  const count = props.restaurant.gamme_prix.length;
+  const count = props.restaurant.priceRange.length;
   switch (count) {
     case 1:
       return "text-green-600";

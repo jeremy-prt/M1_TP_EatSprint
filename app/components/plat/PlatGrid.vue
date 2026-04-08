@@ -14,9 +14,9 @@
     </div>
 
     <div v-else class="space-y-12">
-      <div v-for="(platsCategorie, categorie) in platsGroupes" :key="categorie">
+      <div v-for="(platsCategory, category) in platsGroupes" :key="category">
         <h2 class="text-accent relative left-12 mb-6 text-2xl font-bold italic">
-          {{ categorie }}
+          {{ category }}
         </h2>
 
         <div class="pr-6">
@@ -24,7 +24,7 @@
             class="grid grid-cols-1 gap-6 pl-5 md:grid-cols-3 lg:grid-cols-4"
           >
             <NuxtLink
-              v-for="plat in platsCategorie"
+              v-for="plat in platsCategory"
               :key="plat.id"
               :to="`/restaurants/${restaurantSlug}/plats/${plat.slug}`"
               class="plat-card group relative -skew-x-12 cursor-pointer overflow-hidden shadow-[6px_6px_0_#fb923c] transition-all duration-150"
@@ -33,7 +33,7 @@
 
               <NuxtImg
                 :src="plat.image"
-                :alt="plat.nom"
+                :alt="plat.name"
                 width="400"
                 height="300"
                 sizes="xs:100vw md:33vw lg:25vw"
@@ -51,7 +51,7 @@
                 <span
                   class="text-text bg-black/50 px-2 py-1 text-base font-bold"
                 >
-                  {{ plat.prix }}€
+                  {{ plat.price }}€
                 </span>
               </div>
 
@@ -60,7 +60,7 @@
               >
                 <div class="absolute bottom-9 left-4">
                   <h3 class="text-text text-lg font-bold">
-                    {{ plat.nom }}
+                    {{ plat.name }}
                   </h3>
                 </div>
                 <div
@@ -72,7 +72,7 @@
                     class="text-blue-400"
                   />
                   <span class="text-sm font-semibold text-white">
-                    {{ plat.temps_preparation_min }}{{ $t('plats.units.minutes') }}
+                    {{ plat.preparationTime }}{{ $t('plats.units.minutes') }}
                   </span>
                 </div>
                 <div
@@ -117,10 +117,10 @@ const platsGroupes = computed(() => {
   const groupes: Record<string, Plat[]> = {}
 
   props.plats.forEach((plat) => {
-    if (!groupes[plat.categorie]) {
-      groupes[plat.categorie] = []
+    if (!groupes[plat.category]) {
+      groupes[plat.category] = []
     }
-    groupes[plat.categorie].push(plat)
+    groupes[plat.category].push(plat)
   })
 
   return groupes

@@ -18,7 +18,7 @@
 
         <NuxtImg
           :src="restaurant.image"
-          :alt="restaurant.nom"
+          :alt="restaurant.name"
           width="400"
           height="300"
           sizes="xs:100vw md:50vw lg:33vw xl:25vw"
@@ -32,7 +32,7 @@
         >
           <div class="absolute bottom-9 left-4">
             <h3 class="text-text text-lg font-bold">
-              {{ restaurant.nom }}
+              {{ restaurant.name }}
             </h3>
           </div>
           <div
@@ -40,7 +40,7 @@
           >
             <Icon name="mdi:map-marker" size="16" class="text-red-400" />
             <span class="text-sm font-semibold text-white">
-              {{ restaurant.ville }}
+              {{ restaurant.city }}
             </span>
           </div>
           <div
@@ -48,7 +48,7 @@
           >
             <Icon name="mdi:star" size="16" class="text-yellow-400" />
             <span class="text-sm font-semibold text-white">
-              {{ restaurant.note }}
+              {{ restaurant.rating }}
             </span>
           </div>
         </div>
@@ -72,7 +72,7 @@ const filteredRestaurants = computed(() => {
   if (!restaurants.value || !props.searchQuery) return []
 
   const query = props.searchQuery.toLowerCase().trim()
-  return restaurants.value.filter((r: Restaurant) => r.nom.toLowerCase().includes(query))
+  return restaurants.value.filter((r: Restaurant) => r.name.toLowerCase().includes(query))
 })
 </script>
 

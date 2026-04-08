@@ -18,15 +18,15 @@
               {{ $t('orders.orderNumber') }}{{ order.id }}
             </h3>
             <p class="text-sm text-gray-600">
-              {{ formatDate(order.created_at) }}
+              {{ formatDate(order.createdAt) }}
             </p>
           </div>
           <div class="text-right">
             <span
               class="inline-block rounded px-3 py-1 text-sm font-semibold"
-              :class="getStatusClass(order.statut)"
+              :class="getStatusClass(order.status)"
             >
-              {{ getStatusLabel(order.statut) }}
+              {{ getStatusLabel(order.status) }}
             </span>
             <p class="text-accent mt-2 text-2xl font-extrabold">
               {{ order.total.toFixed(2) }}€
@@ -45,11 +45,11 @@
                 >{{ item.quantity }}x</span
               >
               <span class="text-gray-800">{{
-                item.plat?.nom || $t('orders.unknownDish')
+                item.dish?.name || $t('orders.unknownDish')
               }}</span>
             </div>
             <span class="font-semibold text-gray-700">
-              {{ (item.prix_unitaire * item.quantity).toFixed(2) }}€
+              {{ (item.unitPrice * item.quantity).toFixed(2) }}€
             </span>
           </div>
         </div>
@@ -85,12 +85,12 @@ const getStatusLabel = (status: OrderStatus): string => {
 
 const getStatusClass = (status: OrderStatus): string => {
   const classes: Record<OrderStatus, string> = {
-    en_attente: "bg-yellow-100 text-yellow-800",
-    confirmee: "bg-blue-100 text-blue-800",
-    en_preparation: "bg-purple-100 text-purple-800",
-    en_livraison: "bg-orange-100 text-orange-800",
-    livree: "bg-green-100 text-green-800",
-    annulee: "bg-red-100 text-red-800",
+    PENDING: "bg-yellow-100 text-yellow-800",
+    CONFIRMED: "bg-blue-100 text-blue-800",
+    PREPARING: "bg-purple-100 text-purple-800",
+    DELIVERING: "bg-orange-100 text-orange-800",
+    DELIVERED: "bg-green-100 text-green-800",
+    CANCELLED: "bg-red-100 text-red-800",
   };
   return classes[status] || "bg-gray-100 text-gray-800";
 };

@@ -249,12 +249,12 @@
     "orderNumber": "Commande #",
     "unknownDish": "Plat inconnu",
     "status": {
-      "en_attente": "En attente",
-      "confirmee": "Confirmée",
-      "en_preparation": "En préparation",
-      "en_livraison": "En livraison",
-      "livree": "Livrée",
-      "annulee": "Annulée"
+      "PENDING": "En attente",
+      "CONFIRMED": "Confirmée",
+      "PREPARING": "En préparation",
+      "DELIVERING": "En livraison",
+      "DELIVERED": "Livrée",
+      "CANCELLED": "Annulée"
     },
     "empty": {
       "title": "Aucune commande",

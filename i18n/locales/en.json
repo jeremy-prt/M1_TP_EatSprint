@@ -249,12 +249,12 @@
     "orderNumber": "Order #",
     "unknownDish": "Unknown dish",
     "status": {
-      "en_attente": "Pending",
-      "confirmee": "Confirmed",
-      "en_preparation": "In preparation",
-      "en_livraison": "Out for delivery",
-      "livree": "Delivered",
-      "annulee": "Cancelled"
+      "PENDING": "Pending",
+      "CONFIRMED": "Confirmed",
+      "PREPARING": "In preparation",
+      "DELIVERING": "Out for delivery",
+      "DELIVERED": "Delivered",
+      "CANCELLED": "Cancelled"
     },
     "empty": {
       "title": "No orders",

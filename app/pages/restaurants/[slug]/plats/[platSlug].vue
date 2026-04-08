@@ -2,9 +2,9 @@
   <div class="relative min-h-[calc(100vh-var(--spacing-header))] py-8">
     <div class="w-full px-6">
       <PlatBreadcrumb
-        :restaurant-name="restaurant?.nom"
+        :restaurant-name="restaurant?.name"
         :restaurant-slug="slug"
-        :plat-name="plat?.nom"
+        :plat-name="plat?.name"
       />
 
       <PlatDetailSkeleton v-if="pending" />
@@ -28,19 +28,18 @@ const route = useRoute()
 const slug = route.params.slug as string
 const platSlug = route.params.platSlug as string
 
-// Récupération du restaurant pour le breadcrumb
 const { restaurants } = useRestaurants()
 const restaurant = computed<Restaurant | undefined>(() => {
   return restaurants.value?.find((r) => r.slug === slug)
 })
 
-// Récupération du plat
-const { plats: allPlats, pending, error, refresh } = usePlats()
+const restaurantId = computed(() => restaurant.value?.id)
+
+const { plats: allPlats, pending, error, refresh } = usePlats(restaurantId)
 const plat = computed<Plat | null | undefined>(() => {
   if (!allPlats.value) return null
   return allPlats.value.find((p) => p.slug === platSlug)
 })
 
-// SEO dynamique avec Schema.org
 useSeoPlat(plat, restaurant)
 </script>

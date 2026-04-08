@@ -67,7 +67,7 @@ const handleRemove = (platId: number) => {
   const item = items.value.find((i) => i.plat.id === platId)
   if (item) {
     removeItem(platId)
-    toast.success(t('cart.messages.removed', { name: item.plat.nom }))
+    toast.success(t('cart.messages.removed', { name: item.plat.name }))
   }
 }
 
@@ -85,12 +85,11 @@ const handleOrder = async () => {
 
   try {
     const orderData = {
+      restaurantId: items.value[0]!.plat.restaurantId,
       items: items.value.map((item) => ({
-        plat_id: item.plat.id,
+        dishId: item.plat.id,
         quantity: item.quantity,
-        prix_unitaire: item.plat.prix,
       })),
-      total: totalPrice.value,
     }
 
     await orderStore.createOrder(orderData)

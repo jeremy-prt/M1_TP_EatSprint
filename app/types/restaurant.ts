@@ -1,16 +1,17 @@
 export interface Restaurant {
   id: number
-  nom: string
-  adresse: string
-  ville: string
-  categorie: string
+  name: string
+  address: string
+  city: string
+  category: string
   image: string
-  created_at: string
   cuisine: string
-  note: number
-  nb_avis: number
-  gamme_prix: string
-  temps_livraison_min: number
+  rating: number
+  reviewCount: number
+  priceRange: string
+  deliveryTimeMin: number
   slug: string
-  owner_id: number | null
+  ownerId: number | null
+  createdAt: string
+  updatedAt: string
 }

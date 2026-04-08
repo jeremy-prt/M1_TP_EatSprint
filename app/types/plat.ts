@@ -1,18 +1,19 @@
 export interface Plat {
   id: number
+  name: string
   slug: string
-  nom: string
-  prix: number
+  price: number
   description: string
-  categorie: string
-  restaurant_id: number
+  category: string
+  restaurantId: number
   calories: number
-  temps_preparation_min: number
-  vegetarien: boolean
-  vegan: boolean
-  epice: boolean
-  allergenes: string | null
-  disponible: boolean
+  preparationTime: number
+  isVegetarian: boolean
+  isVegan: boolean
+  isSpicy: boolean
+  allergens: string | null
+  isAvailable: boolean
   image: string
-  created_at: string
+  createdAt: string
+  updatedAt: string
 }

@@ -9,7 +9,7 @@
           <div class="absolute inset-0 bg-gray-400"></div>
           <NuxtImg
             :src="plat.image"
-            :alt="plat.nom"
+            :alt="plat.name"
             width="800"
             height="600"
             loading="eager"
@@ -27,24 +27,24 @@
               <div class="flex items-center gap-2">
                 <Icon name="mdi:food" size="16" class="text-secondary" />
                 <span class="text-sm font-semibold text-white">
-                  {{ plat.categorie }}
+                  {{ plat.category }}
                 </span>
               </div>
-              <div v-if="plat.vegetarien" class="flex items-center gap-2">
+              <div v-if="plat.isVegetarian" class="flex items-center gap-2">
                 <Icon name="mdi:leaf" size="16" class="text-green-400" />
                 <span class="text-sm font-semibold text-white">
                   {{ $t('plats.detail.badges.vegetarian') }}
                 </span>
               </div>
-              <div v-if="plat.vegan" class="flex items-center gap-2">
+              <div v-if="plat.isVegan" class="flex items-center gap-2">
                 <Icon name="mdi:sprout" size="16" class="text-green-500" />
                 <span class="text-sm font-semibold text-white">{{ $t('plats.detail.badges.vegan') }}</span>
               </div>
-              <div v-if="plat.epice" class="flex items-center gap-2">
+              <div v-if="plat.isSpicy" class="flex items-center gap-2">
                 <Icon name="mdi:chili-hot" size="16" class="text-red-400" />
                 <span class="text-sm font-semibold text-white">{{ $t('plats.detail.badges.spicy') }}</span>
               </div>
-              <div v-if="!plat.disponible" class="flex items-center gap-2">
+              <div v-if="!plat.isAvailable" class="flex items-center gap-2">
                 <Icon
                   name="mdi:close-circle"
                   size="16"
@@ -62,7 +62,7 @@
         <div class="flex flex-col gap-6 p-12 italic">
           <div>
             <h1 class="mb-2 text-4xl font-bold text-gray-800">
-              {{ plat.nom }}
+              {{ plat.name }}
             </h1>
           </div>
 
@@ -72,7 +72,7 @@
             <div class="flex items-center gap-2">
               <Icon name="mdi:clock-outline" size="20" class="text-blue-400" />
               <span class="font-semibold"
-                >{{ plat.temps_preparation_min }}{{ $t('plats.units.minutes') }}</span
+                >{{ plat.preparationTime }}{{ $t('plats.units.minutes') }}</span
               >
             </div>
             <div class="flex items-center gap-2">
@@ -81,7 +81,7 @@
             </div>
           </div>
 
-          <div v-if="plat.allergenes" class="flex flex-col gap-2">
+          <div v-if="plat.allergens" class="flex flex-col gap-2">
             <div class="flex items-center gap-2">
               <Icon
                 name="mdi:alert-circle"
@@ -92,7 +92,7 @@
             </div>
             <div class="flex flex-wrap gap-2">
               <span
-                v-for="(allergene, index) in plat.allergenes.split(';')"
+                v-for="(allergene, index) in plat.allergens.split(';')"
                 :key="index"
                 class="inline-block -skew-x-6 bg-yellow-500 px-3 py-1 text-sm font-semibold text-black shadow-[2px_2px_0_black]"
               >
@@ -104,7 +104,7 @@
           <div class="mt-auto space-y-6">
             <div class="border-primary/20 border-t pt-6">
               <span class="text-accent text-5xl font-extrabold">
-                {{ plat.prix }}€
+                {{ plat.price }}€
               </span>
             </div>
 
@@ -130,7 +130,7 @@
                 </button>
               </div>
 
-              <UiButtonHighlight v-if="plat.disponible" @click="addToCart">
+              <UiButtonHighlight v-if="plat.isAvailable" @click="addToCart">
                 {{ $t('plats.detail.addToCart') }}
               </UiButtonHighlight>
               <div
@@ -170,9 +170,7 @@ const decrementQuantity = () => {
 }
 
 const addToCart = () => {
-  console.log('🎯 addToCart appelé pour:', props.plat.nom, 'quantité:', quantity.value)
   cart.addItem(props.plat, quantity.value)
-  console.log('✅ Après cart.addItem')
   quantity.value = 1
 }
 </script>

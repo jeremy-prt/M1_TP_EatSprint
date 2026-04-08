@@ -6,7 +6,7 @@
     <form @submit.prevent="handleSubmit" class="space-y-4">
       <div class="grid gap-4 md:grid-cols-2">
         <UiInput
-          v-model="formData.nom"
+          v-model="formData.name"
           label="Nom du plat"
           type="text"
           placeholder="Buddha Bowl Végétarien"
@@ -14,7 +14,7 @@
         />
 
         <UiInput
-          v-model.number="formData.prix"
+          v-model.number="formData.price"
           label="Prix (€)"
           type="number"
           step="0.01"
@@ -33,7 +33,7 @@
 
       <div class="grid gap-4 md:grid-cols-2">
         <UiInput
-          v-model="formData.categorie"
+          v-model="formData.category"
           label="Catégorie"
           type="text"
           placeholder="Plat principal"
@@ -59,7 +59,7 @@
         />
 
         <UiInput
-          v-model.number="formData.temps_preparation_min"
+          v-model.number="formData.preparationTime"
           label="Temps de préparation (min)"
           type="number"
           placeholder="20"
@@ -68,7 +68,7 @@
       </div>
 
       <UiInput
-        v-model="formData.allergenes"
+        v-model="formData.allergens"
         label="Allergènes"
         type="text"
         placeholder="Gluten;Lactose;Fruits à coque"
@@ -81,7 +81,7 @@
           Disponibilité
         </h3>
         <UiToggle
-          v-model="formData.disponible"
+          v-model="formData.isAvailable"
           label="Disponible à la vente"
           active-text="Le plat est disponible"
           inactive-text="Le plat est indisponible"
@@ -93,9 +93,9 @@
           Caractéristiques alimentaires
         </h3>
         <div class="grid gap-3 md:grid-cols-2">
-          <UiCheckbox v-model="formData.vegetarien" label="Végétarien" />
-          <UiCheckbox v-model="formData.vegan" label="Vegan" />
-          <UiCheckbox v-model="formData.epice" label="Épicé" />
+          <UiCheckbox v-model="formData.isVegetarian" label="Végétarien" />
+          <UiCheckbox v-model="formData.isVegan" label="Vegan" />
+          <UiCheckbox v-model="formData.isSpicy" label="Épicé" />
         </div>
       </div>
     </form>
@@ -134,17 +134,17 @@ interface Props {
 }
 
 interface FormData {
-  nom: string
-  prix: number
+  name: string
+  price: number
   description: string
-  categorie: string
+  category: string
   calories: number
-  temps_preparation_min: number
-  vegetarien: boolean
-  vegan: boolean
-  epice: boolean
-  allergenes: string | null
-  disponible: boolean
+  preparationTime: number
+  isVegetarian: boolean
+  isVegan: boolean
+  isSpicy: boolean
+  allergens: string | undefined
+  isAvailable: boolean
   image: string
 }
 
@@ -167,17 +167,17 @@ const editMode = computed(() => !!props.plat)
 const loading = ref(false)
 
 const formData = ref<FormData>({
-  nom: '',
-  prix: 0,
+  name: '',
+  price: 0,
   description: '',
-  categorie: '',
+  category: '',
   calories: 0,
-  temps_preparation_min: 0,
-  vegetarien: false,
-  vegan: false,
-  epice: false,
-  allergenes: null,
-  disponible: true,
+  preparationTime: 0,
+  isVegetarian: false,
+  isVegan: false,
+  isSpicy: false,
+  allergens: undefined,
+  isAvailable: true,
   image: ''
 })
 
@@ -187,32 +187,32 @@ watch(
     if (newVal) {
       if (props.plat) {
         formData.value = {
-          nom: props.plat.nom,
-          prix: props.plat.prix,
+          name: props.plat.name,
+          price: props.plat.price,
           description: props.plat.description,
-          categorie: props.plat.categorie,
+          category: props.plat.category,
           calories: props.plat.calories,
-          temps_preparation_min: props.plat.temps_preparation_min,
-          vegetarien: props.plat.vegetarien,
-          vegan: props.plat.vegan,
-          epice: props.plat.epice,
-          allergenes: props.plat.allergenes,
-          disponible: props.plat.disponible,
+          preparationTime: props.plat.preparationTime,
+          isVegetarian: props.plat.isVegetarian,
+          isVegan: props.plat.isVegan,
+          isSpicy: props.plat.isSpicy,
+          allergens: props.plat.allergens ?? undefined,
+          isAvailable: props.plat.isAvailable,
           image: props.plat.image
         }
       } else {
         formData.value = {
-          nom: '',
-          prix: 0,
+          name: '',
+          price: 0,
           description: '',
-          categorie: '',
+          category: '',
           calories: 0,
-          temps_preparation_min: 0,
-          vegetarien: false,
-          vegan: false,
-          epice: false,
-          allergenes: null,
-          disponible: true,
+          preparationTime: 0,
+          isVegetarian: false,
+          isVegan: false,
+          isSpicy: false,
+          allergens: undefined,
+          isAvailable: true,
           image: ''
         }
       }

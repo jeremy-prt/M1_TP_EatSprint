@@ -147,6 +147,7 @@ const currentRestaurantPlats = computed(() => {
 const handleSelectRestaurant = (restaurant: Restaurant) => {
   selectedRestaurant.value = restaurant;
   activeTab.value = "info";
+  fetchPlats(restaurant.id);
 };
 
 const openRestaurantModal = () => {
@@ -216,7 +217,7 @@ const handleSubmitPlat = async (data: any) => {
 };
 
 const handleDeletePlat = async (plat: Plat) => {
-  if (!confirm(`Êtes-vous sûr de vouloir supprimer "${plat.nom}" ?`)) {
+  if (!confirm(`Êtes-vous sûr de vouloir supprimer "${plat.name}" ?`)) {
     return;
   }
 
@@ -243,9 +244,12 @@ watch(restaurants, (newRestaurants) => {
   }
 });
 
-onMounted(() => {
-  fetchMyRestaurants();
-  fetchPlats();
+onMounted(async () => {
+  await fetchMyRestaurants();
+  if (restaurants.value.length > 0) {
+    selectedRestaurant.value = restaurants.value[0]!;
+    await fetchPlats(restaurants.value[0]!.id);
+  }
 });
 </script>
 

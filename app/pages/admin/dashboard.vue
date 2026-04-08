@@ -89,7 +89,7 @@ const handleSubmitUser = async (userData: any) => {
   if (result.success) {
     const userId = userData.id || result.data?.id;
     const currentRestaurantIds = restaurants.value
-      .filter((r) => r.owner_id === userId)
+      .filter((r) => r.ownerId === userId)
       .map((r) => r.id);
 
     const toAssign = userData.restaurantIds.filter(

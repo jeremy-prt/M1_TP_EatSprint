@@ -26,13 +26,13 @@
               {{ roleLabel }}
             </span>
           </p>
-          <p v-if="authStore.user?.adresse">
+          <p v-if="authStore.user?.address">
             <span class="font-semibold">{{ $t('account.myInfo.fields.address') }} :</span>
-            {{ authStore.user.adresse }}
+            {{ authStore.user.address }}
           </p>
-          <p v-if="authStore.user?.ville">
+          <p v-if="authStore.user?.city">
             <span class="font-semibold">{{ $t('account.myInfo.fields.city') }} :</span>
-            {{ authStore.user.ville }} {{ authStore.user.code_postal }}
+            {{ authStore.user.city }} {{ authStore.user.zipCode }}
           </p>
         </div>
       </div>
@@ -110,11 +110,11 @@ useHead({
 
 const roleLabel = computed(() => {
   switch (authStore.user?.role) {
-    case "admin":
+    case "ADMIN":
       return t('account.roles.admin');
-    case "restaurant_owner":
+    case "RESTAURANT_OWNER":
       return t('account.roles.restaurant_owner');
-    case "customer":
+    case "CUSTOMER":
       return t('account.roles.customer');
     default:
       return t('account.roles.unknown');

@@ -53,7 +53,7 @@
 
           <NuxtImg
             :src="restaurant.image"
-            :alt="restaurant.nom"
+            :alt="restaurant.name"
             width="400"
             height="300"
             :loading="priority ? 'eager' : 'lazy'"
@@ -68,19 +68,19 @@
           >
             <div class="absolute bottom-9 left-4">
               <h3 class="text-text text-lg font-bold">
-                {{ restaurant.nom }}
+                {{ restaurant.name }}
               </h3>
             </div>
             <div class="restaurant-ville absolute left-4 bottom-4 flex items-center gap-1">
               <Icon name="mdi:map-marker" size="16" class="text-red-400" />
               <span class="text-sm font-semibold text-white">
-                {{ restaurant.ville }}
+                {{ restaurant.city }}
               </span>
             </div>
             <div class="restaurant-note absolute bottom-4 right-4 flex items-center gap-1">
               <Icon name="mdi:star" size="16" class="text-yellow-400" />
               <span class="text-sm font-semibold text-white">
-                {{ restaurant.note }}
+                {{ restaurant.rating }}
               </span>
             </div>
           </div>

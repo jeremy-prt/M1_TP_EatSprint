@@ -9,7 +9,7 @@
         <div class="relative -skew-x-6 overflow-hidden">
           <NuxtImg
             :src="item.plat.image"
-            :alt="item.plat.nom"
+            :alt="item.plat.name"
             width="150"
             height="100"
             class="h-24 w-full object-cover"
@@ -20,10 +20,10 @@
 
       <div class="md:col-span-4">
         <h3 class="mb-1 text-xl font-bold text-gray-800">
-          {{ item.plat.nom }}
+          {{ item.plat.name }}
         </h3>
         <p class="text-accent text-lg font-bold">
-          {{ item.plat.prix.toFixed(2) }}{{ $t('cart.item.perUnit') }}
+          {{ item.plat.price.toFixed(2) }}{{ $t('cart.item.perUnit') }}
         </p>
       </div>
 
@@ -49,7 +49,7 @@
 
       <div class="flex items-center justify-between md:col-span-3">
         <span class="text-accent text-2xl font-extrabold">
-          {{ (item.plat.prix * item.quantity).toFixed(2) }}€
+          {{ (item.plat.price * item.quantity).toFixed(2) }}€
         </span>
         <button
           @click="handleRemove"

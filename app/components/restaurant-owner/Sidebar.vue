@@ -17,10 +17,10 @@
             <Icon name="mdi:silverware-fork-knife" size="24" />
             <div class="flex-1 overflow-hidden">
               <span class="block truncate font-medium">{{
-                restaurant.nom
+                restaurant.name
               }}</span>
               <span class="block truncate text-xs opacity-75">{{
-                restaurant.ville
+                restaurant.city
               }}</span>
             </div>
           </button>

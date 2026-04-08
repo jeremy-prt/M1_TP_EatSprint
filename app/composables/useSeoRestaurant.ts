@@ -15,29 +15,29 @@ export const useSeoRestaurant = (
 
   const title = computed(() => {
     if (!restaurant.value) return "EatSprint";
-    return `${restaurant.value.nom} - ${t('seo.restaurant.titleSuffix')}`;
+    return `${restaurant.value.name} - ${t('seo.restaurant.titleSuffix')}`;
   });
 
   const description = computed(() => {
     if (!restaurant.value) return "";
     return t('seo.restaurant.description', {
-      name: restaurant.value.nom,
-      city: restaurant.value.ville,
-      rating: restaurant.value.note
+      name: restaurant.value.name,
+      city: restaurant.value.city,
+      rating: restaurant.value.rating
     });
   });
 
   const ogTitle = computed(() => {
     if (!restaurant.value) return "";
-    return `${restaurant.value.nom} - ${t('seo.restaurant.titleSuffix')}`;
+    return `${restaurant.value.name} - ${t('seo.restaurant.titleSuffix')}`;
   });
 
   const ogDescription = computed(() => {
     if (!restaurant.value) return "";
     return t('seo.restaurant.ogDescription', {
-      name: restaurant.value.nom,
-      city: restaurant.value.ville,
-      rating: restaurant.value.note
+      name: restaurant.value.name,
+      city: restaurant.value.city,
+      rating: restaurant.value.rating
     });
   });
 
@@ -49,7 +49,7 @@ export const useSeoRestaurant = (
     ogTitle: () => ogTitle.value,
     ogDescription: () => ogDescription.value,
     ogImage: () => ogImage.value,
-    ogImageAlt: () => restaurant.value?.nom || "",
+    ogImageAlt: () => restaurant.value?.name || "",
     ogUrl: () => `${baseUrl}${route.fullPath}`,
     ogType: "website",
     ogSiteName: "EatSprint",
