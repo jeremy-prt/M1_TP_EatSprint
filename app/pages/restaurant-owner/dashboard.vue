@@ -1,6 +1,20 @@
 <template>
   <div class="p-8">
     <div class="mx-auto max-w-7xl">
+      <div class="mb-4 flex items-center justify-between">
+        <div class="flex items-center gap-2">
+          <span
+            class="inline-block h-2.5 w-2.5 rounded-full"
+            :class="isConnected ? 'bg-green-500' : 'bg-gray-300'"
+          />
+          <span class="text-sm text-gray-500">
+            {{ isConnected ? 'Temps réel actif' : 'Connexion...' }}
+          </span>
+        </div>
+        <div v-if="newOrderCount > 0" class="rounded-full bg-red-500 px-3 py-1 text-sm font-bold text-white">
+          {{ newOrderCount }} nouvelle{{ newOrderCount > 1 ? 's' : '' }} commande{{ newOrderCount > 1 ? 's' : '' }}
+        </div>
+      </div>
       <div class="flex gap-6">
         <RestaurantOwnerSidebarSkeleton v-if="pendingRestaurants" />
         <RestaurantOwnerSidebar
@@ -133,6 +147,8 @@ const {
 } = useMyPlats();
 
 const toast = useToast();
+const { connect, disconnect, isConnected } = useWebSocket();
+const newOrderCount = ref(0);
 const selectedRestaurant = ref<Restaurant | null>(null);
 const activeTab = ref<"info" | "plats">("info");
 const showRestaurantModal = ref(false);
@@ -250,6 +266,17 @@ onMounted(async () => {
     selectedRestaurant.value = restaurants.value[0]!;
     await fetchPlats(restaurants.value[0]!.id);
   }
+
+  connect((msg) => {
+    if (msg.event === 'new-order') {
+      newOrderCount.value++;
+      toast.success(`Nouvelle commande #${msg.data.orderId} — ${msg.data.totalPrice.toFixed(2)}€`);
+    }
+  });
+});
+
+onUnmounted(() => {
+  disconnect();
 });
 </script>
 
